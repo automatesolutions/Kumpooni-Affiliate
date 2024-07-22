@@ -1,0 +1,9 @@
+.github
+.husky
+android
+coverage-ts
+ios
+patches
+.type-coverage
+.next
+.vscode
