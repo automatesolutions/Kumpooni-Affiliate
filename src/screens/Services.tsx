@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, {useCallback, useState} from 'react'
 import {
   View,
   StyleSheet,
@@ -7,21 +7,17 @@ import {
   FlatList,
   ListRenderItemInfo,
 } from 'react-native'
-import { DataTable } from 'react-native-paper'
-import { useNavigation } from '@react-navigation/native'
-import { Text } from '#/components/Typography'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { currency } from '#/lib/currency'
-import { useSession } from '#/state/session'
-import { CenteredView } from '#/view/com/util/Views'
-import { statusFilterTab } from '#/lib/constants'
-import {
-  AllNavigatorParams,
-  CommonNavigatorParams,
-  NavigationProp,
-} from '#/lib/routes/types'
-import { useTheme, atoms as a } from '#/theme'
-import { color } from '#/theme/tokens'
+import {DataTable} from 'react-native-paper'
+import {useNavigation} from '@react-navigation/native'
+import {Text} from '#/components/Typography'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
+import {currency} from '#/lib/currency'
+import {useSession} from '#/state/session'
+import {CenteredView} from '#/view/com/util/Views'
+import {statusFilterTab} from '#/lib/constants'
+import {AllNavigatorParams, NavigationProp} from '#/lib/routes/types'
+import {useTheme, atoms as a} from '#/theme'
+import {color} from '#/theme/tokens'
 import {
   useDeleteService,
   useServicesPaginationQuery,
@@ -35,10 +31,10 @@ import {
   StatusFilter,
 } from '#/modules/services/types'
 
-import { ServicesMenu } from '#/view/com/services/ServicesMenu'
-import { logger } from '#/logger'
-import { Button } from '#/components/Button'
-import { ServiceStatus as ServiceStatusBadge } from '#/components/Services/ServicesStatus'
+import {ServicesMenu} from '#/view/com/services/ServicesMenu'
+import {logger} from '#/logger'
+import {Button} from '#/components/Button'
+import {ServiceStatus as ServiceStatusBadge} from '#/components/Services/ServicesStatus'
 
 type Props = NativeStackScreenProps<AllNavigatorParams, 'Service'>
 const ITEM_HEIGHT = 50
@@ -49,7 +45,7 @@ const defaultFilter: StatusFilter = {
 }
 export function ServicesScreen(props: Props) {
   const t = useTheme()
-  const { session } = useSession()
+  const {session} = useSession()
   if (!session?.store_id) {
     return (
       <CenteredView>
@@ -61,7 +57,7 @@ export function ServicesScreen(props: Props) {
   return <ServicesScreeenInner storeId={session.store_id} />
 }
 
-function ServicesScreeenInner({ storeId }: { storeId: string }) {
+function ServicesScreeenInner({storeId}: {storeId: string}) {
   return (
     <View style={[a.flex_1]}>
       <ServicesTable storeId={storeId} />
@@ -69,7 +65,7 @@ function ServicesScreeenInner({ storeId }: { storeId: string }) {
   )
 }
 
-function ServicesTable({ storeId }: { storeId: string }) {
+function ServicesTable({storeId}: {storeId: string}) {
   const [searchParams, setSearchParams] = useState<SearchParams>({
     limit: 150,
     offset: 0,
@@ -92,12 +88,13 @@ function ServicesTable({ storeId }: { storeId: string }) {
   const navigation = useNavigation<NavigationProp>()
   const deleteMutation = useDeleteService()
   const toggleActiveInactive = useUpdateServiceStatus()
+
   const onSelectStatus = useCallback(
     (status: ServiceStatusType) => {
       setSearchParams(prev => {
         return {
           ...prev,
-          filters: [{ ...defaultFilter, value: status }],
+          filters: [{...defaultFilter, value: status}],
         }
       })
     },
@@ -112,7 +109,7 @@ function ServicesTable({ storeId }: { storeId: string }) {
   }
   const onPressEdit = useCallback(
     (id: number) => {
-      navigation.navigate('CreateOrEditService', { id })
+      navigation.navigate('CreateOrEditService', {id})
     },
     [navigation],
   )
@@ -123,14 +120,14 @@ function ServicesTable({ storeId }: { storeId: string }) {
           id,
         })
       } catch (error) {
-        logger.error('Failed to delete services', { error })
+        logger.error('Failed to delete services', {error})
       }
     },
     [deleteMutation],
   )
 
   const onNewService = useCallback(() => {
-    navigation.navigate('CreateOrEditService', { id: undefined })
+    navigation.navigate('CreateOrEditService', {id: undefined})
   }, [navigation])
   const onToggleActiveInactive = useCallback(
     async (id: number, status: ServiceStatus) => {
@@ -140,13 +137,13 @@ function ServicesTable({ storeId }: { storeId: string }) {
           status: status === 'Active' ? 'Inactive' : 'Active',
         })
       } catch (error) {
-        logger.error('Failed to update service', { error })
+        logger.error('Failed to update service', {error})
       }
     },
     [toggleActiveInactive],
   )
 
-  const renderItem = useCallback(({ item }: ListRenderItemInfo<Services>) => {
+  const renderItem = useCallback(({item}: ListRenderItemInfo<Services>) => {
     return (
       <DataTableRow
         service={item}
@@ -175,8 +172,7 @@ function ServicesTable({ storeId }: { storeId: string }) {
       <DataTable
         style={[
           {
-            // borderRadius: 10,
-            marginBottom: 40,
+            marginBottom: 20,
             flex: 1,
           },
         ]}>
@@ -238,14 +234,12 @@ function TableSeparator() {
       style={[
         a.border_t,
         t.atoms.border_contrast_medium,
-        { height: 1, width: '100%' },
+        {height: 1, width: '100%'},
       ]}
     />
   )
 }
-function TableFooter() {
-  return <View style={[{ marginBottom: 50, height: 40, width: '100%' }]}></View>
-}
+
 function DataTableRow({
   service,
   onPressEdit,
@@ -303,7 +297,7 @@ function StatusFilterTab({
           a.gap_2xs,
           a.mb_sm,
           a.border_b,
-          { borderColor: color.gray_300 },
+          {borderColor: color.gray_300},
         ]}>
         {statusFilterTab.map(tab => {
           const isActive = tab.label === searchParams?.filters[0].value
@@ -313,7 +307,7 @@ function StatusFilterTab({
               onPress={() => onSelect(tab.value)}
               key={tab.value}
               style={[a.px_2xs, a.py_2xs, isActive && styles.activeTab]}>
-              <Text style={{ color: isActive ? '#000' : color.gray_600 }}>
+              <Text style={{color: isActive ? '#000' : color.gray_600}}>
                 {tab.label}
               </Text>
             </TouchableOpacity>
@@ -322,6 +316,9 @@ function StatusFilterTab({
       </View>
     </>
   )
+}
+function TableFooter() {
+  return <View style={[{marginBottom: 50, height: 40, width: '100%'}]}></View>
 }
 
 const styles = StyleSheet.create({
@@ -334,7 +331,7 @@ const styles = StyleSheet.create({
   textActive: {
     color: '#fff',
   },
-  columnTitle: { fontWeight: '700', color: '#000', fontSize: 16 },
+  columnTitle: {fontWeight: '700', color: '#000', fontSize: 16},
   activeTab: {
     borderBottomColor: color.blue_400,
     borderBottomWidth: 6,

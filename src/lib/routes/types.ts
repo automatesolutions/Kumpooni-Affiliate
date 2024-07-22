@@ -1,16 +1,17 @@
-import { Services } from '#/modules/shared/types'
-import { NavigationState, PartialState } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import {Services} from '#/modules/shared/types'
+import {NavigationState, PartialState} from '@react-navigation/native'
+import {NativeStackNavigationProp} from '@react-navigation/native-stack'
 
 export type CommonNavigatorParams = {
-  OrderDetails: { id: string }
-  CreateOrEditService: { id?: number }
-  EditServiceScreen: { id: number }
+  OrderDetails: {id: string}
+  CreateOrEditService: {id?: number}
+  EditServiceScreen: {id: number}
   Debug: undefined
   HolidayMode: undefined
   AccountSetting: undefined
   ForgotPassword: undefined
   Notification: undefined
+  Parts: undefined
 }
 
 export type BottomTabNavigatorParams = {
@@ -53,7 +54,7 @@ export type State =
   | Omit<PartialState<NavigationState>, 'stale'>
 
 export type RouteParams = Record<string, string>
-export type MatchResult = { params: RouteParams }
+export type MatchResult = {params: RouteParams}
 
 export type Route = {
   match: (path: string) => MatchResult | undefined

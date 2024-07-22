@@ -1,9 +1,9 @@
-import { Database } from '#/database'
-import { SupabaseClient } from '@supabase/supabase-js'
-import { z } from 'zod'
-import { paymentValidator } from './payment.model'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '#/lib/supabase'
+import {SupabaseClient} from '@supabase/supabase-js'
+import {z} from 'zod'
+import {paymentValidator} from './payment.model'
+import {useMutation, useQueryClient} from '@tanstack/react-query'
+import {supabase} from '#/lib/supabase'
+import {Database} from '#/types/supabase'
 
 type insertPayment = z.infer<typeof paymentValidator> & {
   repair_order_id: string
@@ -19,7 +19,7 @@ export function useInsertPayment() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: async (input: insertPayment) => {
-      const { data, error } = await insertPayment(supabase, input)
+      const {data, error} = await insertPayment(supabase, input)
       if (error) {
         throw error
       }

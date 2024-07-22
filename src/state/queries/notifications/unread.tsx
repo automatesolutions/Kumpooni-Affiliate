@@ -1,23 +1,23 @@
 import React from 'react'
-import type { CachedFeedPage, NotifUnreadCount } from './types'
-import { supabase } from '#/lib/supabase'
+import type {CachedFeedPage, NotifUnreadCount} from './types'
+import {supabase} from '#/lib/supabase'
 import BroadcastChannel from '#/lib/broadcast'
 
-import { useSession } from '#/state/session'
-import { logger } from '#/logger'
+import {useSession} from '#/state/session'
+import {logger} from '#/logger'
 import EventEmitter from 'eventemitter3'
-import { AppState } from 'react-native'
-import { useQueryClient } from '@tanstack/react-query'
-import { truncateAndInvalidate } from '../util'
-import { RQKEY as RQKEY_NOTIFS } from './count'
-import { resetBadgeCount } from '#/lib/notification'
+import {AppState} from 'react-native'
+import {useQueryClient} from '@tanstack/react-query'
+import {truncateAndInvalidate} from '../util'
+import {RQKEY as RQKEY_NOTIFS} from './count'
+import {resetBadgeCount} from '#/lib/notification'
 
 type StateContext = string
 const stateContext = React.createContext<StateContext>('')
 
 type ApiContext = {
   markAllAsRead: () => Promise<void>
-  markReadByCategory: (opts?: { category_id?: number }) => Promise<void>
+  markReadByCategory: (opts?: {category_id?: number}) => Promise<void>
   checkUnreadMsgCount: (opts?: {
     isPoll?: boolean
     invalidate?: boolean
@@ -36,7 +36,7 @@ const UPDATE_INTERVAL = 60 * 1e3 // 30sec
 
 const broadcast = new BroadcastChannel('NOTIFS_BROADCAST_CHANNEL')
 const emitter = new EventEmitter()
-export function Provider({ children }: React.PropsWithChildren<{}>) {
+export function Provider({children}: React.PropsWithChildren<{}>) {
   const [hasUnread, setHasUnread] = React.useState<boolean>(false)
   const [numUnread, setNumUnread] = React.useState('')
   const checkUnreadRef = React.useRef<ApiContext['checkUnreadMsgCount'] | null>(
@@ -49,7 +49,7 @@ export function Provider({ children }: React.PropsWithChildren<{}>) {
     hasUnread: false,
     unreadCount: 0,
   })
-  const { session, hasSession } = useSession()
+  const {session, hasSession} = useSession()
   const queryClient = useQueryClient()
   React.useEffect(() => {
     function markAsUnusable() {
@@ -70,7 +70,7 @@ export function Provider({ children }: React.PropsWithChildren<{}>) {
     }
     checkUnreadRef.current() // fire on init
     const interval = setInterval(
-      () => checkUnreadRef.current?.({ isPoll: true }),
+      () => checkUnreadRef.current?.({isPoll: true}),
       UPDATE_INTERVAL,
     )
     return () => clearInterval(interval)
@@ -79,7 +79,7 @@ export function Provider({ children }: React.PropsWithChildren<{}>) {
   // listen for broadcasts
   React.useEffect(() => {
     //@ts-ignore MessageEvent Type
-    const listener = ({ data }: MessageEvent) => {
+    const listener = ({data}: MessageEvent) => {
       cacheRef.current = {
         usableInFeed: false,
         syncedAt: new Date(),
@@ -106,16 +106,16 @@ export function Provider({ children }: React.PropsWithChildren<{}>) {
           if (!session || !session.store_id) return
           await supabase
             .from('store_notifications')
-            .update({ is_read: true })
+            .update({is_read: true})
             .eq('store_id', session.store_id)
             .eq('is_read', false)
 
           resetBadgeCount()
         } catch (e) {
-          logger.warn('Failed to mark all as read', { error: e })
+          logger.warn('Failed to mark all as read', {error: e})
         }
       },
-      async markReadByCategory({ category_id }: { category_id?: number } = {}) {
+      async markReadByCategory({category_id}: {category_id?: number} = {}) {
         console.log('markReadByCategory')
         try {
           if (!session || !session.store_id) return
@@ -123,19 +123,19 @@ export function Provider({ children }: React.PropsWithChildren<{}>) {
 
           await supabase
             .from('store_notifications')
-            .update({ is_read: true })
+            .update({is_read: true})
             .eq('store_id', session.store_id)
             .eq('category_id', category_id)
 
           resetBadgeCount()
         } catch (e) {
-          logger.warn('Failed to mark all as read by category', { error: e })
+          logger.warn('Failed to mark all as read by category', {error: e})
         }
       },
       async checkUnreadMsgCount({
         isPoll,
         invalidate,
-      }: { isPoll?: boolean; invalidate?: boolean } = {}) {
+      }: {isPoll?: boolean; invalidate?: boolean} = {}) {
         try {
           if (!session || !session.store_id) return
           if (AppState.currentState !== 'active') {
@@ -150,15 +150,12 @@ export function Provider({ children }: React.PropsWithChildren<{}>) {
             }
           }
 
-          const { data, error } = await supabase.rpc(
-            'get_notification_counts',
-            {
-              storeid: session.store_id,
-            },
-          )
-          logger.debug('Data', { data })
+          const {data, error} = await supabase.rpc('get_notification_counts', {
+            storeid: session.store_id,
+          })
+
           if (error) {
-            logger.error('checkUnreadMsgCount Error:', { e: error })
+            logger.error('checkUnreadMsgCount Error:', {e: error})
             throw error
           }
 
@@ -186,9 +183,9 @@ export function Provider({ children }: React.PropsWithChildren<{}>) {
           if (invalidate) {
             truncateAndInvalidate(queryClient, RQKEY_NOTIFS())
           }
-          broadcast.postMessage({ event: unreadCountStr })
+          broadcast.postMessage({event: unreadCountStr})
         } catch (e) {
-          logger.warn('Failed to check unread notifications', { error: e })
+          logger.warn('Failed to check unread notifications', {error: e})
         }
       },
       getCachedUnreadMsgCount() {

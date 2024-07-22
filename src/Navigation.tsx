@@ -2,19 +2,17 @@ import React from 'react'
 import {
   CommonActions,
   createNavigationContainerRef,
-  getStateFromPath,
   LinkingOptions,
   NavigationContainer,
   StackActions,
-  useNavigationContainerRef,
 } from '@react-navigation/native'
 import {
   BottomTabBarProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs'
-import { HomeScreen } from './screens/Home'
+import {HomeScreen} from './screens/Home'
 
-import { createNativeStackNavigatorWithAuth } from './view/shell/createNativeStackWithAuth'
+import {createNativeStackNavigatorWithAuth} from './view/shell/createNativeStackWithAuth'
 import {
   AllNavigatorParams,
   OrdersTabNavigatorParams,
@@ -25,21 +23,21 @@ import {
   RouteParams,
   SettingsTabNavigatorParams,
 } from './lib/routes/types'
-import { BottomBar } from './view/shell/BottomBar'
-import { OrdersScreen } from './screens/Orders'
-import { ServicesScreen } from './screens/Services'
-import { SettingsScreen } from './screens/Settings'
-import { OrderDetailsScreen } from './screens/OrderDetails'
-import { Storybook } from './screens/StoryBook'
-import { PartsScreen } from './screens/Parts'
-import { CreateServiceScreen } from './screens/CreateService'
-import { HolidayModeScreen } from './screens/HolidayMode'
-import { AccountSettingScreen } from './screens/AccountSetting'
-import { NotificationScreen } from './screens/Notification'
-import { router } from './routes'
-import { isNative } from './platform/detection'
-import { buildStateObject } from './lib/routes/helpers'
-import { timeout } from './lib/async/timeout'
+import {BottomBar} from './view/shell/BottomBar'
+import {OrdersScreen} from './screens/Orders'
+import {ServicesScreen} from './screens/Services'
+import {SettingsScreen} from './screens/Settings'
+import {OrderDetailsScreen} from './screens/OrderDetails'
+import {Storybook} from './screens/StoryBook'
+import {PartsScreen} from './screens/Parts'
+import {CreateServiceScreen} from './screens/CreateService'
+import {HolidayModeScreen} from './screens/HolidayMode'
+import {AccountSettingScreen} from './screens/AccountSetting'
+import {NotificationScreen} from './screens/Notification'
+import {router} from './routes'
+import {isNative} from './platform/detection'
+import {buildStateObject} from './lib/routes/helpers'
+import {timeout} from './lib/async/timeout'
 
 const RootStack = createNativeStackNavigatorWithAuth<AllNavigatorParams>()
 const Tab = createBottomTabNavigator<BottomTabNavigatorParams>()
@@ -62,7 +60,7 @@ function TabsNavigator() {
   return (
     <Tab.Navigator
       backBehavior="initialRoute"
-      screenOptions={{ headerShown: false, lazy: true }}
+      screenOptions={{headerShown: false, lazy: true}}
       initialRouteName="HomeTab"
       tabBar={tabBar}>
       <Tab.Screen name="HomeTab" getComponent={() => HomeTabNavigator} />
@@ -94,7 +92,7 @@ function RootNavigator() {
       <RootStack.Screen
         name="Debug"
         getComponent={() => Storybook}
-        options={{ title: 'Hello World', requireAuth: true }}
+        options={{title: 'Hello World', requireAuth: true}}
       />
       <RootStack.Screen
         name="CreateOrEditService"
@@ -130,7 +128,7 @@ function HomeTabNavigator() {
       <HomeTab.Screen
         name="Home"
         getComponent={() => HomeScreen}
-        options={{ requireAuth: true }}
+        options={{requireAuth: true}}
       />
     </HomeTab.Navigator>
   )
@@ -144,7 +142,7 @@ function OrdersTabNavigator() {
       <OrdersTab.Screen
         name="Order"
         getComponent={() => OrdersScreen}
-        options={{ requireAuth: true }}
+        options={{requireAuth: true}}
       />
     </OrdersTab.Navigator>
   )
@@ -158,7 +156,7 @@ function ServicesTabNavigator() {
       <ServicesTab.Screen
         name="Service"
         getComponent={() => ServicesScreen}
-        options={{ requireAuth: true }}
+        options={{requireAuth: true}}
       />
     </ServicesTab.Navigator>
   )
@@ -172,7 +170,7 @@ function PartsTabNavigator() {
       <PartsTab.Screen
         name="Parts"
         getComponent={() => PartsScreen}
-        options={{ requireAuth: true }}
+        options={{requireAuth: true}}
       />
     </PartsTab.Navigator>
   )
@@ -186,14 +184,14 @@ function SettingsTabNavigator() {
       <SettingsTab.Screen
         name="Settings"
         getComponent={() => SettingsScreen}
-        options={{ requireAuth: true }}
+        options={{requireAuth: true}}
       />
     </SettingsTab.Navigator>
   )
 }
 
 const LINKING: LinkingOptions<AllNavigatorParams> = {
-  prefixes: ['automatepartner://'],
+  prefixes: ['kumpoonipartner://'],
   getPathFromState(state: State) {
     // find the current node in the navigation tree
     let node = state.routes[state.index || 0]
@@ -247,7 +245,7 @@ const LINKING: LinkingOptions<AllNavigatorParams> = {
     }
   },
 }
-function RoutesContainer({ children }: React.PropsWithChildren<{}>) {
+function RoutesContainer({children}: React.PropsWithChildren<{}>) {
   return (
     <NavigationContainer ref={navigationRef} linking={LINKING}>
       {children}
@@ -313,7 +311,7 @@ function reset(): Promise<void> {
     navigationRef.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{ name: isNative ? 'HomeTab' : 'Home' }],
+        routes: [{name: isNative ? 'HomeTab' : 'Home'}],
       }),
     )
     return Promise.race([

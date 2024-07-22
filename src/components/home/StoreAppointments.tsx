@@ -1,11 +1,11 @@
-import React, { memo } from 'react'
-import { View, StyleSheet, ActivityIndicator } from 'react-native'
-import { Text } from '#/components/Typography'
-import { useTheme, atoms as a } from '#/theme'
-import { AppointmentsTable } from './RecentOrders'
-import { useAppointmentsQuery } from '#/modules/appointment'
+import React, {memo} from 'react'
+import {View, StyleSheet, ActivityIndicator} from 'react-native'
+import {Text} from '#/components/Typography'
+import {useTheme, atoms as a} from '#/theme'
+import {AppointmentsTable} from './AppoinmentTable'
+import {useAppointmentsQuery} from '#/modules/appointment'
 
-import { useRealtimeAppointment } from '#/modules/appointment/hooks/useRealtimeAppointment'
+import {useRealtimeAppointment} from '#/modules/appointment/hooks/useRealtimeAppointment'
 
 export const StoreAppointments = memo(function StoreAppointments({
   storeId,

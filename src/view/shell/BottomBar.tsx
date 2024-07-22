@@ -1,7 +1,7 @@
-import React, { ComponentProps, useLayoutEffect } from 'react'
+import React, {ComponentProps, useLayoutEffect} from 'react'
 import Animated from 'react-native-reanimated'
-import { GestureResponderEvent, TouchableOpacity, View } from 'react-native'
-import { StackActions } from '@react-navigation/native'
+import {GestureResponderEvent, TouchableOpacity, View} from 'react-native'
+import {StackActions} from '@react-navigation/native'
 
 import {
   HomeIcon,
@@ -15,15 +15,15 @@ import {
   ServicesIcon,
   ServicesIconSolid,
 } from '#/lib/icons'
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
-import { useNavigationTabState } from '#/lib/hooks/useNavigationTabState'
-import { TabState, getTabState } from '#/lib/routes/helpers'
-import { useDedupe } from '#/lib/hooks/useDedupe'
+import {BottomTabBarProps} from '@react-navigation/bottom-tabs'
+import {useNavigationTabState} from '#/lib/hooks/useNavigationTabState'
+import {TabState, getTabState} from '#/lib/routes/helpers'
+import {useDedupe} from '#/lib/hooks/useDedupe'
 
-import { atoms as a } from '#/theme'
-import { useSession } from '#/state/session'
-import { Text } from '#/components/Typography'
-import { styles } from './BottomBarStyles'
+import {atoms as a} from '#/theme'
+import {useSession} from '#/state/session'
+import {Text} from '#/components/Typography'
+import {styles} from './BottomBarStyles'
 type TabOptions = 'Home' | 'Orders' | 'Services' | 'Parts' | 'Settings'
 interface BtnProps
   extends Pick<
@@ -41,11 +41,11 @@ interface BtnProps
   onPress?: (event: GestureResponderEvent) => void
   onLongPress?: (event: GestureResponderEvent) => void
 }
-export function BottomBar({ navigation }: BottomTabBarProps) {
+export function BottomBar({navigation}: BottomTabBarProps) {
   const dedupe = useDedupe()
-  const { hasSession } = useSession()
+  const {hasSession} = useSession()
 
-  const { isAtHome, isAtOrders, isAtServices, isAtParts, isAtSettings } =
+  const {isAtHome, isAtOrders, isAtServices, isAtParts, isAtSettings} =
     useNavigationTabState()
 
   const hideBottomBar = !hasSession
@@ -91,7 +91,13 @@ export function BottomBar({ navigation }: BottomTabBarProps) {
           paddingBottom: 2,
           // display: 'flex',
           display:
-            isAtSettings || isAtServices || hideBottomBar ? 'none' : 'flex',
+            isAtSettings ||
+            isAtServices ||
+            isAtParts ||
+            isAtOrders ||
+            hideBottomBar
+              ? 'none'
+              : 'flex',
         },
       ]}>
       <Btn
@@ -103,13 +109,13 @@ export function BottomBar({ navigation }: BottomTabBarProps) {
             <HomeIconSolid
               strokeWidth={4}
               size={26}
-              style={[styles.ctrlIcon, { color: '#b61616' }, styles.homeIcon]}
+              style={[styles.ctrlIcon, {color: '#b61616'}, styles.homeIcon]}
             />
           ) : (
             <HomeIcon
               strokeWidth={4}
               size={26}
-              style={[styles.ctrlIcon, { color: '#000' }, styles.homeIcon]}
+              style={[styles.ctrlIcon, {color: '#000'}, styles.homeIcon]}
             />
           )
         }
@@ -127,13 +133,13 @@ export function BottomBar({ navigation }: BottomTabBarProps) {
             <OrdersIconSolid
               strokeWidth={0.1}
               size={26}
-              style={[styles.ctrlIcon, { color: '#b61616' }, styles.orderIcon]}
+              style={[styles.ctrlIcon, {color: '#b61616'}, styles.orderIcon]}
             />
           ) : (
             <OrdersIcon
               strokeWidth={0.3}
               size={26}
-              style={[styles.ctrlIcon, { color: '#000' }, styles.orderIcon]}
+              style={[styles.ctrlIcon, {color: '#000'}, styles.orderIcon]}
             />
           )
         }
@@ -151,13 +157,13 @@ export function BottomBar({ navigation }: BottomTabBarProps) {
             <ServicesIconSolid
               strokeWidth={23}
               size={26}
-              style={[styles.ctrlIcon, { color: '#b61616' }, styles.orderIcon]}
+              style={[styles.ctrlIcon, {color: '#b61616'}, styles.orderIcon]}
             />
           ) : (
             <ServicesIcon
               strokeWidth={1.8}
               size={26}
-              style={[styles.ctrlIcon, { color: '#000' }, styles.orderIcon]}
+              style={[styles.ctrlIcon, {color: '#000'}, styles.orderIcon]}
             />
           )
         }
@@ -174,13 +180,13 @@ export function BottomBar({ navigation }: BottomTabBarProps) {
           isAtParts ? (
             <PartsIconSolid
               size={24}
-              style={[styles.ctrlIcon, { color: '#b61616' }, styles.partIcon]}
+              style={[styles.ctrlIcon, {color: '#b61616'}, styles.partIcon]}
             />
           ) : (
             <PartsIcon
               strokeWidth={1.8}
               size={26}
-              style={[styles.ctrlIcon, { color: '#000' }, styles.partIcon]}
+              style={[styles.ctrlIcon, {color: '#000'}, styles.partIcon]}
             />
           )
         }
@@ -198,17 +204,13 @@ export function BottomBar({ navigation }: BottomTabBarProps) {
             <MyAccountIconSolid
               strokeWidth={2}
               size={26}
-              style={[
-                styles.ctrlIcon,
-                { color: '#b61616' },
-                styles.accountIcon,
-              ]}
+              style={[styles.ctrlIcon, {color: '#b61616'}, styles.accountIcon]}
             />
           ) : (
             <MyAccountIcon
               strokeWidth={2}
               size={26}
-              style={[styles.ctrlIcon, { color: '#000' }, styles.accountIcon]}
+              style={[styles.ctrlIcon, {color: '#000'}, styles.accountIcon]}
             />
           )
         }
@@ -254,7 +256,7 @@ function Btn({
           a.text_center,
           a.text_md,
           isActive ? a.font_bold : a.font_normal,
-          { color: isActive ? '#b61616' : '#000' },
+          {color: isActive ? '#b61616' : '#000'},
         ]}>
         {label}
       </Text>

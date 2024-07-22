@@ -1,34 +1,34 @@
-import { Database } from '#/database'
-import { groupBy } from '#/lib/functions/groupyBy'
-import { supabase } from '#/lib/supabase'
-import { logger } from '#/logger'
-import { SupabaseClient } from '@supabase/supabase-js'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { z } from 'zod'
-import { RepairOrder } from './types'
-import { OrderStatusTabType, OrderStatusType } from '#/lib/constants'
-import { orderLineValidator, partLineValidator } from '../orders'
-import { sanitize } from '#/utils/supabase'
+import {Database} from '#/database'
+import {groupBy} from '#/lib/functions/groupyBy'
+import {supabase} from '#/lib/supabase'
+import {logger} from '#/logger'
+import {SupabaseClient} from '@supabase/supabase-js'
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
+import {z} from 'zod'
+import {RepairOrder} from './types'
+import {OrderStatusTabType, OrderStatusType} from '#/lib/constants'
+import {orderLineValidator, partLineValidator} from '../orders'
+import {sanitize} from '#/utils/supabase'
 
 export async function getRepairOrders(
   client: SupabaseClient<Database>,
   storeId: string,
-  args: { status: OrderStatusTabType },
+  args: {status: OrderStatusTabType},
 ) {
   let query = client.from('repair_orders').select('*').eq('store_id', storeId)
 
   if (args.status !== 'All Orders') {
     query = query.eq('status', args.status)
   }
-  query = query.order('appointment_date_str', { ascending: false }).limit(50)
+  query = query.order('appointment_date_str', {ascending: false}).limit(50)
   return query
 }
 
 export async function getRepairOrder(
   client: SupabaseClient<Database>,
-  { id }: { id: string },
+  {id}: {id: string},
 ) {
-  return client.from('repair_orders').select('*').match({ id: id }).single()
+  return client.from('repair_orders').select('*').match({id: id}).single()
 }
 
 export async function upsertRepairOrderLine(
@@ -96,21 +96,17 @@ export async function deleteRepairOrderPart(
 
 export function useRepairOrdersQuery(
   id: string,
-  args: { status: OrderStatusTabType },
+  args: {status: OrderStatusTabType},
 ) {
   return useQuery({
     queryKey: ['repair_orders', args],
     queryFn: async () => {
-      const { data, error } = await getRepairOrders(supabase, id, args)
+      const {data, error} = await getRepairOrders(supabase, id, args)
       if (error) {
-        logger.error('useRepairOrdersQuery', { error })
+        logger.error('useRepairOrdersQuery', {error})
         throw error
       }
 
-      // let result = {}
-      // if (data) {
-      //   result = groupBy('status')(data)
-      // }
       if (data) {
         return data as RepairOrder[]
       }
@@ -119,18 +115,16 @@ export function useRepairOrdersQuery(
   })
 }
 
-export function useRepairOrderQuery({ id }: { id: string }) {
+export function useRepairOrderQuery({id}: {id: string}) {
   return useQuery({
     queryKey: ['order', id],
     queryFn: async () => {
-      const { data, error } = await getRepairOrder(supabase, {
+      const {data, error} = await getRepairOrder(supabase, {
         id,
       })
       if (error) {
-        console.log('error', error)
         throw error
       }
-
       return data as RepairOrder
     },
   })
@@ -147,9 +141,9 @@ export function usePaymentHistoryQuery(id: string) {
   return useQuery({
     queryKey: ['order-payment', id],
     queryFn: async () => {
-      const { data, error } = await getRepairPayments(supabase, id)
+      const {data, error} = await getRepairPayments(supabase, id)
       if (error) {
-        logger.error('usePaymentHistoryQuery', { error })
+        logger.error('usePaymentHistoryQuery', {error})
         throw error
       }
       return data
@@ -167,7 +161,7 @@ export function useRepairOrderLineMutation() {
             id: string
           }),
     ) => {
-      const { data, error } = await upsertRepairOrderLine(supabase, args)
+      const {data, error} = await upsertRepairOrderLine(supabase, args)
       if (error) {
         console.error('useRepairOrderMutation Error', error)
       }
@@ -185,19 +179,19 @@ export function useRepairOrderLineMutation() {
 
 export async function updateAppointment(
   client: SupabaseClient<Database>,
-  { id, date, time }: { id: string; date: string; time: string },
+  {id, date, time}: {id: string; date: string; time: string},
 ) {
   return client
     .from('repair_order')
-    .update({ appointment_date: date, appointment_time: time })
+    .update({appointment_date: date, appointment_time: time})
     .eq('id', id)
 }
 
 export async function updateRepairOrderStatus(
   client: SupabaseClient<Database>,
-  { id, status }: { id: string; status: OrderStatusType },
+  {id, status}: {id: string; status: OrderStatusType},
 ) {
-  return client.from('repair_order').update({ status }).eq('id', id)
+  return client.from('repair_order').update({status}).eq('id', id)
 }
 
 export function useRepairOrderLinePartMutation() {
@@ -210,7 +204,7 @@ export function useRepairOrderLinePartMutation() {
             id: string
           }),
     ) => {
-      const { data, error } = await upsertRepairOrderPart(supabase, args)
+      const {data, error} = await upsertRepairOrderPart(supabase, args)
       if (error) {
         console.error('useRepairOrderLinePartMutation Error', error)
       }

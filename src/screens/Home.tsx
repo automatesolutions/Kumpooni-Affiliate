@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
-import { Text } from '#/components/Typography'
-import { atoms as a, useTheme } from '#/theme'
-import { useSession } from '#/state/session'
+import React, {useState} from 'react'
+import {View, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
+import {Text} from '#/components/Typography'
+import {atoms as a, useTheme} from '#/theme'
+import {useSession} from '#/state/session'
 
-import { HStack } from '#/components/HStack'
-import { CalendarCheck, Wrench } from 'lucide-react-native'
-import { colors } from '#/lib/styles'
-import { currency } from '#/lib/currency'
-import { CashSvg } from '#/components/icons/Cash'
-import { useStorePerformance } from '#/modules/appointment'
-import { PeriodTypes, periods } from '#/lib/constants'
-import { StoreAppointments } from '#/components/home/StoreAppointments'
+import {HStack} from '#/components/HStack'
+import {CalendarCheck, Wrench} from 'lucide-react-native'
+import {colors} from '#/lib/styles'
+import {currency} from '#/lib/currency'
+import {CashSvg} from '#/components/icons/Cash'
+import {useStorePerformance} from '#/modules/appointment'
+import {PeriodTypes, periods} from '#/lib/constants'
+import {StoreAppointments} from '#/components/home/StoreAppointments'
 import HomeHeader from '#/components/home/HomeHeader'
 
 export function HomeScreen() {
   const t = useTheme()
-  const { session } = useSession()
+  const {session} = useSession()
 
   if (!session) {
     return (
@@ -40,7 +40,7 @@ export function HomeScreen() {
   )
 }
 
-function HomePageInner({ storeId }: { storeId: string | null }) {
+function HomePageInner({storeId}: {storeId: string | null}) {
   return (
     <View>
       <StoreStatistic storeId={storeId!} />
@@ -49,13 +49,13 @@ function HomePageInner({ storeId }: { storeId: string | null }) {
   )
 }
 
-function StoreStatistic({ storeId }: { storeId: string }) {
+function StoreStatistic({storeId}: {storeId: string}) {
   const [period, setPeriod] = useState<PeriodTypes>('this_week')
-  const { data: storePerformance } = useStorePerformance(storeId!, period)
+  const {data: storePerformance} = useStorePerformance(storeId!, period)
   return (
     <View style={[a.px_lg, a.pb_xs]}>
       <View style={[a.px_lg, a.self_end, a.flex_row, a.gap_2xs]}>
-        {periods.map(({ label, value }) => {
+        {periods.map(({label, value}) => {
           const isActive = period === value
           return (
             <TouchableOpacity
@@ -70,7 +70,7 @@ function StoreStatistic({ storeId }: { storeId: string }) {
                   borderColor: isActive ? '#b61616' : colors.gray4,
                 },
               ]}>
-              <Text style={[, { color: isActive ? '#b61616' : colors.gray5 }]}>
+              <Text style={[, {color: isActive ? '#b61616' : colors.gray5}]}>
                 {label}
               </Text>
             </TouchableOpacity>
@@ -86,7 +86,7 @@ function StoreStatistic({ storeId }: { storeId: string }) {
           <HStack style={[a.gap_xs]}>
             <View
               style={[
-                { backgroundColor: '#000', height: 28, width: 28 },
+                {backgroundColor: '#000', height: 28, width: 28},
                 a.rounded_full,
                 a.justify_center,
                 a.align_center,
@@ -103,7 +103,7 @@ function StoreStatistic({ storeId }: { storeId: string }) {
           <HStack style={[a.gap_xs]}>
             <View
               style={[
-                { backgroundColor: '#41C575', height: 28, width: 28 },
+                {backgroundColor: '#41C575', height: 28, width: 28},
                 a.rounded_full,
                 a.justify_center,
                 a.align_center,
@@ -120,7 +120,7 @@ function StoreStatistic({ storeId }: { storeId: string }) {
           <HStack style={[a.gap_xs]}>
             <View
               style={[
-                { backgroundColor: 'grey', height: 28, width: 28 },
+                {backgroundColor: 'grey', height: 28, width: 28},
                 a.rounded_full,
                 a.justify_center,
                 a.align_center,

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {
   View,
   StyleSheet,
@@ -6,29 +6,30 @@ import {
   ActivityIndicator,
   ListRenderItemInfo,
 } from 'react-native'
-import { Text } from '#/components/Typography'
-import { useTheme, atoms as a } from '#/theme'
-import { useSession } from '#/state/session'
-import { usePartsQuery } from '#/modules/shared'
-import { DataTable } from 'react-native-paper'
+import {Text} from '#/components/Typography'
+import {useTheme, atoms as a} from '#/theme'
+import {useSession} from '#/state/session'
+import {usePartsQuery} from '#/modules/shared'
+import {DataTable} from 'react-native-paper'
 
-import { Parts } from '#/modules/shared/types'
-import { formatDate } from '#/utils/date'
+import {Parts} from '#/modules/shared/types'
+import {formatDate} from '#/utils/date'
 
-import { PartsMenu } from './PartsMenu'
-import { useModalControls } from '#/state/modals'
-import { currency } from '#/lib/currency'
+import {PartsMenu} from './PartsMenu'
+import {useModalControls} from '#/state/modals'
+import {currency} from '#/lib/currency'
+import {List} from '../util/List'
 
 type PartsListProps = {}
 
-const LOADING = { _reactKey: '__loading__' }
-const EMPTY = { _reactKey: '__empty__' }
-const ERROR_ITEM = { _reactKey: '__error__' }
+const LOADING = {_reactKey: '__loading__'}
+const EMPTY = {_reactKey: '__empty__'}
+const ERROR_ITEM = {_reactKey: '__error__'}
 export function PartsList(props: PartsListProps) {
   const t = useTheme()
-  const { session } = useSession()
+  const {session} = useSession()
 
-  const { openModal } = useModalControls()
+  const {openModal} = useModalControls()
   const {
     data,
     isLoading,
@@ -65,47 +66,62 @@ export function PartsList(props: PartsListProps) {
     return items
   }, [isError, isEmpty, isFetched, isFetching, data])
 
-  const renderItem = useCallback(({ item }: ListRenderItemInfo<Parts>) => {
+  const renderItem = useCallback(({item}: ListRenderItemInfo<Parts>) => {
     return <DataTableRow item={item} onPressEdit={onPressEdit(item)} />
   }, [])
   return (
-    <View style={[a.flex_grow, a.mx_2xl, a.mt_sm]}>
-      <DataTable
-        style={[
-          {
-            backgroundColor: '#fff',
-            borderRadius: 10,
-          },
-        ]}>
-        <DataTable.Header>
-          <DataTable.Title textStyle={styles.columnTitle}>
-            Parts
-          </DataTable.Title>
+    // <View style={[a.flex_grow, a.mx_2xl, a.mt_sm]}>
+    <DataTable
+      style={[
+        {
+          flex: 1,
+          backgroundColor: '#fff',
+          borderRadius: 10,
+          marginBottom: 2,
+        },
+      ]}>
+      <DataTable.Header>
+        <DataTable.Title textStyle={styles.columnTitle}>Parts</DataTable.Title>
 
-          <DataTable.Title textStyle={styles.columnTitle}>
-            Part No.
-          </DataTable.Title>
-          <DataTable.Title textStyle={styles.columnTitle}>
-            Category
-          </DataTable.Title>
-          <DataTable.Title textStyle={styles.columnTitle}>
-            Description
-          </DataTable.Title>
-          <DataTable.Title textStyle={styles.columnTitle}>
-            Brand
-          </DataTable.Title>
-          <DataTable.Title textStyle={styles.columnTitle}>
-            Price
-          </DataTable.Title>
-          <DataTable.Title textStyle={styles.columnTitle}>
-            Created at
-          </DataTable.Title>
-        </DataTable.Header>
-
-        <FlatList
+        <DataTable.Title textStyle={styles.columnTitle}>
+          Part No.
+        </DataTable.Title>
+        <DataTable.Title textStyle={styles.columnTitle}>
+          Category
+        </DataTable.Title>
+        <DataTable.Title textStyle={styles.columnTitle}>
+          Description
+        </DataTable.Title>
+        <DataTable.Title textStyle={styles.columnTitle}>Brand</DataTable.Title>
+        <DataTable.Title textStyle={styles.columnTitle}>Price</DataTable.Title>
+        <DataTable.Title textStyle={styles.columnTitle}>
+          Created at
+        </DataTable.Title>
+      </DataTable.Header>
+      <List
+        data={items}
+        initialNumToRender={20}
+        renderItem={renderItem}
+        ListEmptyComponent={
+          isLoading || isRefetching ? (
+            <View style={[a.py_2xs]}>
+              <ActivityIndicator size={'large'} />
+            </View>
+          ) : (
+            <View
+              style={[a.flex_1, a.justify_center, a.align_center, a.py_2xs]}>
+              <Text>The list is empty</Text>
+            </View>
+          )
+        }
+        refreshing={isRefetching}
+        onRefresh={refetch}
+      />
+      {/* <FlatList
           data={items}
           initialNumToRender={30}
           renderItem={renderItem}
+          style={{paddingBottom: 200}}
           ListEmptyComponent={
             isLoading || isRefetching ? (
               <View style={[a.py_2xs]}>
@@ -120,9 +136,9 @@ export function PartsList(props: PartsListProps) {
           }
           refreshing={isRefetching}
           onRefresh={refetch}
-        />
-      </DataTable>
-    </View>
+        /> */}
+    </DataTable>
+    // </View>
   )
 }
 
@@ -164,5 +180,5 @@ function DataTableRow({
   )
 }
 const styles = StyleSheet.create({
-  columnTitle: { fontWeight: '700', color: '#000', fontSize: 16 },
+  columnTitle: {fontWeight: '700', color: '#000', fontSize: 16},
 })

@@ -1,5 +1,5 @@
-import { colors } from '#/lib/styles'
-import React, { useState } from 'react'
+import {colors} from '#/lib/styles'
+import React, {useState} from 'react'
 
 import Modal from 'react-native-modal'
 import {
@@ -11,27 +11,27 @@ import {
   useWindowDimensions,
   ActivityIndicator,
 } from 'react-native'
-import { atoms as a } from '#/theme'
-import { Text } from '../Typography'
+import {atoms as a} from '#/theme'
+import {Text} from '../Typography'
 
-import { File, X } from 'lucide-react-native'
-import { HStack } from '../HStack'
-import { color } from '#/theme/tokens'
+import {File, X} from 'lucide-react-native'
+import {HStack} from '../HStack'
+import {color} from '#/theme/tokens'
 
 import * as TextField from '#/components/forms/TextField'
 import * as DateField from '#/components/forms/DateField'
 import * as TimeField from '#/components/forms/TimeField'
-import { PaymentMethodSelection } from '../PaymentMethod'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { orderLineValidator } from '#/modules/orders'
-import { paymentValidator } from '#/modules/payment'
-import { z } from 'zod'
-import { OrderStatusType } from '#/lib/constants'
-import { useInsertPayment } from '#/modules/payment/payment.service'
-import { currency } from '#/lib/currency'
-import { Required } from '../Required'
-import { RepairOrder } from '#/modules/repairs'
+import {PaymentMethodSelection} from '../PaymentMethod'
+import {Controller, SubmitHandler, useForm} from 'react-hook-form'
+import {zodResolver} from '@hookform/resolvers/zod'
+
+import {paymentValidator} from '#/modules/payment'
+import {z} from 'zod'
+import {OrderStatusType} from '#/lib/constants'
+import {useInsertPayment} from '#/modules/payment/payment.service'
+import {currency} from '#/lib/currency'
+import {Required} from '../Required'
+import {useSession} from '#/state/session'
 type Inputs = z.infer<typeof paymentValidator>
 type Order = {
   id: string
@@ -57,7 +57,7 @@ export function RecordPaymentModal({
   remaining,
   totalPaid,
 }: RecordPaymentProps) {
-  const { height, width } = useWindowDimensions()
+  const {height, width} = useWindowDimensions()
 
   return (
     <Modal
@@ -74,7 +74,7 @@ export function RecordPaymentModal({
         {/* Header */}
         <HStack
           style={[
-            { height: 50 },
+            {height: 50},
             a.border_b,
             a.justify_between,
             a.align_center,
@@ -104,7 +104,8 @@ function RecordPaymentInner({
   onClosed: () => void
   remaining: number
 }) {
-  const { control, handleSubmit, setValue, watch } = useForm<Inputs>({
+  const {session} = useSession()
+  const {control, handleSubmit, setValue, watch} = useForm<Inputs>({
     resolver: zodResolver(paymentValidator),
     defaultValues: {
       payment_date: new Date().toISOString(),
@@ -118,7 +119,11 @@ function RecordPaymentInner({
   const insertPayment = useInsertPayment()
   const onSaveRecordPayment: SubmitHandler<Inputs> = async input => {
     try {
-      await insertPayment.mutateAsync({ ...input, repair_order_id: order.id })
+      await insertPayment.mutateAsync({
+        ...input,
+        repair_order_id: order.id,
+        store_id: session?.store_id!,
+      })
       onClosed()
     } catch (error) {
       console.log('Error', error)
@@ -130,7 +135,7 @@ function RecordPaymentInner({
   return (
     <KeyboardAvoidingView
       behavior="padding"
-      style={{ flex: 1, flexDirection: 'row' }}>
+      style={{flex: 1, flexDirection: 'row'}}>
       <ScrollView style={[a.flex_1, a.px_md]}>
         <Text style={[a.mt_xs, a.text_md, a.font_semibold]}>Order</Text>
         <View
@@ -156,12 +161,12 @@ function RecordPaymentInner({
                 a.font_bold,
               ]}>{`${order.reference_no} - ${order.name}`}</Text>
           </View>
-          <Text style={[a.absolute, { right: 10 }]}>{`${order.status}`}</Text>
+          <Text style={[a.absolute, {right: 10}]}>{`${order.status}`}</Text>
         </View>
         <Controller
           control={control}
           name="payment_method"
-          render={({ field: { value, onChange } }) => (
+          render={({field: {value, onChange}}) => (
             <PaymentMethodSelection onSelect={onChange} option={value} />
           )}
         />
@@ -170,8 +175,8 @@ function RecordPaymentInner({
             control={control}
             name="amount"
             render={({
-              field: { value, onChange },
-              fieldState: { invalid, error },
+              field: {value, onChange},
+              fieldState: {invalid, error},
             }) => (
               <View style={[a.flex_1]}>
                 <TextField.LabelText style={[]}>
@@ -195,8 +200,8 @@ function RecordPaymentInner({
             control={control}
             name="payment_date"
             render={({
-              field: { value, onChange },
-              fieldState: { invalid, error },
+              field: {value, onChange},
+              fieldState: {invalid, error},
             }) => (
               <View style={[a.flex_1]}>
                 <TextField.LabelText style={[a.font_bold]}>
@@ -221,7 +226,7 @@ function RecordPaymentInner({
         <Controller
           control={control}
           name="reference_no"
-          render={({ field: { value, onChange }, fieldState: { invalid } }) => (
+          render={({field: {value, onChange}, fieldState: {invalid}}) => (
             <View style={[a.flex_1, a.mt_2xs]}>
               <TextField.LabelText style={[]}>
                 Reference no.
@@ -253,12 +258,12 @@ function RecordPaymentInner({
             a.mt_xs,
             a.flex_row,
             a.gap_sm,
-            { height: 40, width: 100, backgroundColor: '#000' },
+            {height: 40, width: 100, backgroundColor: '#000'},
           ]}>
           {insertPayment.isPending && <ActivityIndicator size={'small'} />}
-          <Text style={[{ color: '#fff' }]}>Save</Text>
+          <Text style={[{color: '#fff'}]}>Save</Text>
         </TouchableOpacity>
-        <View style={{ height: 50 }} />
+        <View style={{height: 50}} />
       </ScrollView>
       <View
         style={[

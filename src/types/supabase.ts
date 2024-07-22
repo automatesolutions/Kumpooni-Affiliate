@@ -494,39 +494,42 @@ export type Database = {
       }
       notifications: {
         Row: {
-          content: string | null
           created_at: string
+          description: string | null
           id: string
           is_public: boolean | null
           is_read: boolean
-          notification_type: string
+          metadata: Json | null
           read_at: string | null
           repair_order_id: string | null
           store_id: string | null
+          type: Database["public"]["Enums"]["notification_type"]
           user_id: string | null
         }
         Insert: {
-          content?: string | null
           created_at?: string
+          description?: string | null
           id?: string
           is_public?: boolean | null
           is_read?: boolean
-          notification_type: string
+          metadata?: Json | null
           read_at?: string | null
           repair_order_id?: string | null
           store_id?: string | null
+          type?: Database["public"]["Enums"]["notification_type"]
           user_id?: string | null
         }
         Update: {
-          content?: string | null
           created_at?: string
+          description?: string | null
           id?: string
           is_public?: boolean | null
           is_read?: boolean
-          notification_type?: string
+          metadata?: Json | null
           read_at?: string | null
           repair_order_id?: string | null
           store_id?: string | null
+          type?: Database["public"]["Enums"]["notification_type"]
           user_id?: string | null
         }
         Relationships: [
@@ -2135,7 +2138,7 @@ export type Database = {
           service_ids: number[]
           order_total: number
           review_count: number
-          store_rating: number
+          rating: number
           services: Json[]
           total: number
         }[]
@@ -2384,7 +2387,20 @@ export type Database = {
         | "Uncollectible"
         | "Draft"
         | "Open"
-      payment_method_type: "Cash" | "GCash" | "Bank" | "Maya" | "Online Banking"
+      notification_type:
+        | "scheduled"
+        | "inprogress"
+        | "awaiting-parts"
+        | "canceled"
+        | "completed"
+        | "new-order"
+        | "canceled-order"
+        | "completed-order"
+        | "store"
+        | "services"
+        | "updates"
+        | "default"
+      payment_method_type: "Cash" | "Gcash" | "Bank" | "Maya" | "Online Banking"
       platform_type: "ios" | "android" | "web"
       repair_order_status:
         | "Scheduled"
