@@ -1,31 +1,31 @@
-import React, { memo, useCallback, useMemo } from 'react'
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { ImageOrVideo, Image as RNImage } from 'react-native-image-crop-picker'
-import Svg, { Circle, Path, Rect } from 'react-native-svg'
+import React, {memo, useCallback, useMemo} from 'react'
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {ImageOrVideo, Image as RNImage} from 'react-native-image-crop-picker'
+import Svg, {Circle, Path, Rect} from 'react-native-svg'
 
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome'
 
-import { colors } from '#/lib/styles'
-import { isAndroid, isIOS, isNative, isWeb } from '#/platform/detection'
-// import { precacheProfile } from '#/state/queries/profile'
-import { HighPriorityImage } from '#/view/com/util/images/Image'
-import { tokens, useTheme } from '#/theme'
+import {colors} from '#/lib/styles'
+import {isAndroid, isIOS, isNative, isWeb} from '#/platform/detection'
+
+import {HighPriorityImage} from '#/view/com/util/images/Image'
+import {tokens, useTheme} from '#/theme'
 import {
   Camera_Filled_Stroke2_Corner0_Rounded as CameraFilled,
   Camera_Stroke2_Corner0_Rounded as Camera,
 } from '#/components/icons/Camera'
-import { StreamingLive_Stroke2_Corner0_Rounded as Library } from '#/components/icons/StreamingLive'
+import {StreamingLive_Stroke2_Corner0_Rounded as Library} from '#/components/icons/StreamingLive'
 
 import * as Menu from '#/components/Menu'
 
-import { openCamera, openCropper } from '../../../lib/media/picker'
-import { Text } from '#/components/Typography'
+import {openCamera, openCropper} from '../../../lib/media/picker'
+import {Text} from '#/components/Typography'
 import {
   useCameraPermission,
   usePhotoLibraryPermission,
 } from '#/lib/hooks/usePermission'
 import useImagePicker from '#/modules/appointment/hooks/useImagePicker'
-import { logger } from '#/logger'
+import {logger} from '#/logger'
 
 export type UserAvatarType =
   | 'user'
@@ -167,7 +167,7 @@ let DefaultAvatar = ({
   )
 }
 DefaultAvatar = memo(DefaultAvatar)
-export { DefaultAvatar }
+export {DefaultAvatar}
 
 let UserAvatar = ({
   type = 'user',
@@ -213,31 +213,31 @@ let UserAvatar = ({
   }, [size, t])
 
   return avatar ? (
-    <View style={{ width: size, height: size }}>
+    <View style={{width: size, height: size}}>
       {usePlainRNImage ? (
         <Image
           accessibilityIgnoresInvertColors
           testID="userAvatarImage"
           style={aviStyle}
           resizeMode="cover"
-          source={{ uri: avatar }}
+          source={{uri: avatar}}
         />
       ) : (
         <HighPriorityImage
           testID="userAvatarImage"
           style={aviStyle}
-          source={{ uri: avatar }}
+          source={{uri: avatar}}
         />
       )}
     </View>
   ) : (
-    <View style={{ width: size, height: size }}>
+    <View style={{width: size, height: size}}>
       <DefaultAvatar type={type} size={size} />
     </View>
   )
 }
 UserAvatar = memo(UserAvatar)
-export { UserAvatar }
+export {UserAvatar}
 
 let EditableUserAvatar = ({
   type = 'user',
@@ -247,9 +247,9 @@ let EditableUserAvatar = ({
 }: EditableUserAvatarProps): React.ReactNode => {
   const t = useTheme()
 
-  const { requestCameraAccessIfNeeded } = useCameraPermission()
-  const { requestPhotoAccessIfNeeded } = usePhotoLibraryPermission()
-  const { openPicker } = useImagePicker()
+  const {requestCameraAccessIfNeeded} = useCameraPermission()
+  const {requestPhotoAccessIfNeeded} = usePhotoLibraryPermission()
+  const {openPicker} = useImagePicker()
   const processPhoto = useCallback((image: ImageOrVideo | null) => {
     const stringIndex = image?.path.indexOf('/tmp')
     const imagePath = isIOS ? `~${image?.path.slice(stringIndex)}` : image?.path
@@ -317,7 +317,7 @@ let EditableUserAvatar = ({
       onSelectNewAvatar(croppedImage)
     } catch (e: any) {
       if (!String(e).includes('Canceled')) {
-        logger.error('Failed to crop banner', { error: e })
+        logger.error('Failed to crop banner', {error: e})
       }
     }
   }, [onSelectNewAvatar, requestPhotoAccessIfNeeded])
@@ -329,7 +329,7 @@ let EditableUserAvatar = ({
   return (
     <Menu.Root>
       <Menu.Trigger label={`Edit avatar`}>
-        {({ props }) => (
+        {({props}) => (
           <TouchableOpacity
             {...props}
             activeOpacity={0.8}
@@ -338,7 +338,7 @@ let EditableUserAvatar = ({
               <HighPriorityImage
                 testID="userAvatarImage"
                 style={aviStyle}
-                source={{ uri: avatar }}
+                source={{uri: avatar}}
                 accessibilityRole="image"
               />
             ) : (
@@ -383,7 +383,7 @@ let EditableUserAvatar = ({
   )
 }
 EditableUserAvatar = memo(EditableUserAvatar)
-export { EditableUserAvatar }
+export {EditableUserAvatar}
 
 const styles = StyleSheet.create({
   editButtonContainer: {

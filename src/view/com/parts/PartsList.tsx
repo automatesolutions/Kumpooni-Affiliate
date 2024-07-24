@@ -19,6 +19,7 @@ import {PartsMenu} from './PartsMenu'
 import {useModalControls} from '#/state/modals'
 import {currency} from '#/lib/currency'
 import {List} from '../util/List'
+import {ListEmptyItem} from '#/components/ListEmptyItem'
 
 type PartsListProps = {}
 
@@ -108,10 +109,7 @@ export function PartsList(props: PartsListProps) {
               <ActivityIndicator size={'large'} />
             </View>
           ) : (
-            <View
-              style={[a.flex_1, a.justify_center, a.align_center, a.py_2xs]}>
-              <Text>The list is empty</Text>
-            </View>
+            <ListEmptyItem style={[a.flex_1, {paddingTop: 200}]} />
           )
         }
         refreshing={isRefetching}

@@ -45,7 +45,7 @@ export function BottomBar({navigation}: BottomTabBarProps) {
   const dedupe = useDedupe()
   const {hasSession} = useSession()
 
-  const {isAtHome, isAtOrders, isAtServices, isAtParts, isAtSettings} =
+  const {isAtHome, isAtOrders, isAtService, isAtParts, isAtSettings} =
     useNavigationTabState()
 
   const hideBottomBar = !hasSession
@@ -92,7 +92,7 @@ export function BottomBar({navigation}: BottomTabBarProps) {
           // display: 'flex',
           display:
             isAtSettings ||
-            isAtServices ||
+            isAtService ||
             isAtParts ||
             isAtOrders ||
             hideBottomBar
@@ -151,9 +151,9 @@ export function BottomBar({navigation}: BottomTabBarProps) {
       <Btn
         testID="bottomBarHomeBtn"
         label="Services"
-        isActive={isAtServices}
+        isActive={isAtService}
         icon={
-          isAtServices ? (
+          isAtService ? (
             <ServicesIconSolid
               strokeWidth={23}
               size={26}

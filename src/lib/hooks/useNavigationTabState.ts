@@ -1,19 +1,19 @@
-import { useNavigationState } from '@react-navigation/native'
-import { getTabState, TabState } from '#/lib/routes/helpers'
+import {useNavigationState} from '@react-navigation/native'
+import {getTabState, TabState} from '#/lib/routes/helpers'
 
 export function useNavigationTabState() {
   return useNavigationState(state => {
     const res = {
       isAtHome: getTabState(state, 'Home') !== TabState.Outside,
       isAtOrders: getTabState(state, 'Orders') !== TabState.Outside,
-      isAtServices: getTabState(state, 'Services') !== TabState.Outside,
+      isAtService: getTabState(state, 'Service') !== TabState.Outside,
       isAtParts: getTabState(state, 'Parts') !== TabState.Outside,
       isAtSettings: getTabState(state, 'Settings') !== TabState.Outside,
     }
     if (
       !res.isAtHome &&
       !res.isAtOrders &&
-      !res.isAtServices &&
+      !res.isAtService &&
       !res.isAtParts &&
       !res.isAtSettings
     ) {

@@ -1,4 +1,3 @@
-import {Database} from '#/database'
 import {groupBy} from '#/lib/functions/groupyBy'
 import {supabase} from '#/lib/supabase'
 import {logger} from '#/logger'
@@ -9,6 +8,7 @@ import {RepairOrder} from './types'
 import {OrderStatusTabType, OrderStatusType} from '#/lib/constants'
 import {orderLineValidator, partLineValidator} from '../orders'
 import {sanitize} from '#/utils/supabase'
+import {Database} from '#/types/supabase'
 
 export async function getRepairOrders(
   client: SupabaseClient<Database>,
