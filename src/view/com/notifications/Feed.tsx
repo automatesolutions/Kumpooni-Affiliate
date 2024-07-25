@@ -1,20 +1,21 @@
-import { logger } from '#/logger'
-import { useNotificationByCategoryQuery } from '#/state/queries/notifications/feed'
-import { useCallback, useState } from 'react'
+import {logger} from '#/logger'
+import {useNotificationByCategoryQuery} from '#/state/queries/notifications/feed'
+import {useCallback, useState} from 'react'
 import {
   ActivityIndicator,
   FlatList,
   ListRenderItemInfo,
   View,
 } from 'react-native'
-import { FeedItem } from './FeedItem'
+import {FeedItem} from './FeedItem'
 
-import { Text } from '#/components/Typography'
-import { Button, ButtonText } from '#/components/Button'
-import { ListRef } from '#/screens/Notification'
-import { useSession } from '#/state/session'
-import { useTheme, atoms as a } from '#/theme'
-import { useUnreadNotificationsApi } from '#/state/queries/notifications/unread'
+import {Text} from '#/components/Typography'
+import {Button, ButtonText} from '#/components/Button'
+import {ListRef} from '#/screens/Notification'
+import {useSession} from '#/state/session'
+import {useTheme, atoms as a} from '#/theme'
+import {useUnreadNotificationsApi} from '#/state/queries/notifications/unread'
+import {ListFooter} from '#/components/List'
 
 export function Feed({
   categoryId,
@@ -24,9 +25,10 @@ export function Feed({
   scrollElRef?: ListRef
 }) {
   const t = useTheme()
-  const { session } = useSession()
+  const {session} = useSession()
   const [isPTRing, setIsPTRing] = useState(false)
-  const { checkUnreadMsgCount } = useUnreadNotificationsApi()
+  const {checkUnreadMsgCount} = useUnreadNotificationsApi()
+
   const {
     data: feed,
     isRefetching,
@@ -41,15 +43,15 @@ export function Feed({
     try {
       setIsPTRing(true)
       await refetch()
-      await checkUnreadMsgCount({ invalidate: true })
+      await checkUnreadMsgCount({invalidate: true})
     } catch (err) {
-      logger.error('Failed to refresh notification feed', { message: err })
+      logger.error('Failed to refresh notification feed', {message: err})
     } finally {
       setIsPTRing(false)
     }
   }, [])
   const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<any>) => <FeedItem feed={item} />,
+    ({item}: ListRenderItemInfo<any>) => <FeedItem feed={item} />,
     [],
   )
   if (isLoading || isPTRing) {
@@ -78,19 +80,20 @@ export function Feed({
         a.rounded_md,
         a.m_sm,
         a.overflow_hidden,
-        { borderWidth: 1 },
+        // {borderWidth: 1},
         t.atoms.border_contrast_low,
       ]}
       data={feed}
       renderItem={renderItem}
-      ItemSeparatorComponent={() => (
-        <View style={[{ borderBottomWidth: 1 }, t.atoms.border_contrast_low]} />
-      )}
+      // ItemSeparatorComponent={() => (
+      //   <View style={[{borderBottomWidth: 1}, t.atoms.border_contrast_low]} />
+      // )}
+      ListFooterComponent={<ListFooter endMessageText="" showEndMessage />}
     />
   )
 }
 
-function EmptyFeed({ onRefresh }: { onRefresh: () => void }) {
+function EmptyFeed({onRefresh}: {onRefresh: () => void}) {
   const t = useTheme()
   return (
     <View

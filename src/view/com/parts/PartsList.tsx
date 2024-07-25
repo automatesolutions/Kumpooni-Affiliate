@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useMemo, useState} from 'react'
 import {
   View,
   StyleSheet,
@@ -20,6 +20,10 @@ import {useModalControls} from '#/state/modals'
 import {currency} from '#/lib/currency'
 import {List} from '../util/List'
 import {ListEmptyItem} from '#/components/ListEmptyItem'
+import {logger} from '#/logger'
+import {EmptyState} from '../util/EmptyState'
+import {ErrorMessage} from '../util/error/ErrorMessage'
+import {cleanError} from '#/lib/strings/errors'
 
 type PartsListProps = {}
 
@@ -31,12 +35,14 @@ export function PartsList(props: PartsListProps) {
   const {session} = useSession()
 
   const {openModal} = useModalControls()
+  const [isPtring, setIsPTRing] = useState(false)
   const {
     data,
     isLoading,
     isFetching,
     isFetched,
     isError,
+    error,
     refetch,
     isRefetching,
   } = usePartsQuery(session?.store_id)
@@ -51,7 +57,8 @@ export function PartsList(props: PartsListProps) {
     [openModal],
   )
 
-  const isEmpty = !isFetching && !data?.length
+  // const isEmpty = !isFetching && !data?.length
+  const isEmpty = true
   const items = React.useMemo(() => {
     let items: any[] = []
     if (isError && isEmpty) {
@@ -67,9 +74,39 @@ export function PartsList(props: PartsListProps) {
     return items
   }, [isError, isEmpty, isFetched, isFetching, data])
 
-  const renderItem = useCallback(({item}: ListRenderItemInfo<Parts>) => {
-    return <DataTableRow item={item} onPressEdit={onPressEdit(item)} />
-  }, [])
+  const onRefresh = React.useCallback(async () => {
+    setIsPTRing(true)
+    try {
+      await refetch()
+    } catch (err) {
+      logger.error('Failed to refresh lists', {message: err})
+    }
+    setIsPTRing(false)
+  }, [refetch, setIsPTRing])
+
+  const renderItem = useCallback(
+    ({item, index}: {item: any; index: number}) => {
+      if (item === EMPTY) {
+        return <ListEmptyItem style={{paddingTop: 100}} />
+      } else if (item === ERROR_ITEM) {
+        return (
+          <ErrorMessage
+            key={item._reactKey}
+            message={cleanError(error)}
+            onPressTryAgain={onRefresh}
+          />
+        )
+      } else if (item === LOADING) {
+        return (
+          <View key={item._reactKey} style={{padding: 20}}>
+            <ActivityIndicator size={'large'} color={'red'} />
+          </View>
+        )
+      }
+      return <DataTableRow item={item} onPressEdit={onPressEdit(item)} />
+    },
+    [error, onRefresh],
+  )
   return (
     // <View style={[a.flex_grow, a.mx_2xl, a.mt_sm]}>
     <DataTable
@@ -101,6 +138,7 @@ export function PartsList(props: PartsListProps) {
       </DataTable.Header>
       <List
         data={items}
+        keyExtractor={(item: any) => item.id || item._reactKey}
         initialNumToRender={20}
         renderItem={renderItem}
         ListEmptyComponent={
@@ -112,29 +150,9 @@ export function PartsList(props: PartsListProps) {
             <ListEmptyItem style={[a.flex_1, {paddingTop: 200}]} />
           )
         }
-        refreshing={isRefetching}
-        onRefresh={refetch}
+        refreshing={isPtring}
+        onRefresh={onRefresh}
       />
-      {/* <FlatList
-          data={items}
-          initialNumToRender={30}
-          renderItem={renderItem}
-          style={{paddingBottom: 200}}
-          ListEmptyComponent={
-            isLoading || isRefetching ? (
-              <View style={[a.py_2xs]}>
-                <ActivityIndicator size={'large'} />
-              </View>
-            ) : (
-              <View
-                style={[a.flex_1, a.justify_center, a.align_center, a.py_2xs]}>
-                <Text>The list is empty</Text>
-              </View>
-            )
-          }
-          refreshing={isRefetching}
-          onRefresh={refetch}
-        /> */}
     </DataTable>
     // </View>
   )

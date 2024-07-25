@@ -24,7 +24,7 @@ import {
   SettingsTabNavigatorParams,
 } from './lib/routes/types'
 import {BottomBar} from './view/shell/BottomBar'
-import {OrdersScreen} from './screens/Orders1'
+import {OrdersScreen} from './screens/Orders'
 import {ServicesScreen} from './screens/Services'
 import {SettingsScreen} from './screens/Settings'
 import {OrderDetailsScreen} from './screens/OrderDetails'
