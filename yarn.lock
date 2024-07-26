@@ -1672,6 +1672,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@braintree/sanitize-url@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@braintree/sanitize-url@npm:7.1.0"
+  checksum: d17dcebc759278f4bc7ffbc13d6b7915133ea6fcdea023a1536f80c0b56f7afcd696a7c24781d078babc0da8afd3ed2871798b8067b0e1c90c2d8bd7843134cf
+  languageName: node
+  linkType: hard
+
 "@callstack/react-theme-provider@npm:^3.0.9":
   version: 3.0.9
   resolution: "@callstack/react-theme-provider@npm:3.0.9"
@@ -4198,6 +4205,7 @@ __metadata:
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
     "@bam.tech/react-native-image-resizer": ^3.0.10
+    "@braintree/sanitize-url": ^7.1.0
     "@discord/bottom-sheet": PitZza04/react-native-bottom-sheet
     "@formatjs/intl-locale": ^4.0.0
     "@formatjs/intl-relativetimeformat": ^11.2.14

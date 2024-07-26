@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@bam.tech/react-native-image-resizer": "^3.0.10",
+    "@braintree/sanitize-url": "^7.1.0",
     "@discord/bottom-sheet": "PitZza04/react-native-bottom-sheet",
     "@formatjs/intl-locale": "^4.0.0",
     "@formatjs/intl-relativetimeformat": "^11.2.14",

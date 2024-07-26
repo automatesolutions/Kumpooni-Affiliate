@@ -55,15 +55,6 @@ export function OrderDetailsScreen({route}: Props) {
     )
   }
 
-  // if (!id) {
-  //   return (
-  //     <View style={[a.flex_1]}>
-  //       <Text>Order Not Exist</Text>
-  //       <Text>The order </Text>
-  //     </View>
-  //   )
-  // }
-
   return (
     <Sidebar>
       <OrderDetailsInner id={id} />
@@ -74,15 +65,19 @@ export function OrderDetailsScreen({route}: Props) {
 function OrderDetailsInner({id}: {id: string}) {
   const t = useTheme()
   const navigation = useNavigation<NavigationProp>()
+
+  const {
+    data: repair,
+    isLoading: isLoadingRepair,
+    isError,
+  } = useRepairOrderQuery({
+    id: id,
+  })
   const {
     data: paymentHistory,
-    isError,
     refetch,
     isLoading: paymentHistoryLoading,
   } = usePaymentHistoryQuery(id)
-  const {data: repair, isLoading: isLoadingRepair} = useRepairOrderQuery({
-    id: id,
-  })
   const onRetry = useCallback(async () => {
     try {
       await refetch()
@@ -94,6 +89,7 @@ function OrderDetailsInner({id}: {id: string}) {
   const onPressBack = useCallback(() => {
     navigation.goBack()
   }, [navigation])
+
   if (isLoadingRepair) {
     return (
       <View style={[a.flex_1, a.justify_center, a.align_center]}>

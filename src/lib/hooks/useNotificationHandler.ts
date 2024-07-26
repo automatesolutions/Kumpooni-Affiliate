@@ -12,6 +12,7 @@ import * as notification from 'lib/notifications'
 import notifee, {Event as NotifeeEvent, EventType} from '@notifee/react-native'
 import {logger} from '#/logger'
 import {MinimalNotification, NotificationPayload} from '../notifications/types'
+import {resetToTab} from '#/Navigation'
 
 type Callback = () => void
 
@@ -69,6 +70,7 @@ export function useNotificationsHandler() {
   }
   const handleOpenedNotification = (notification?: MinimalNotification) => {
     if (!notification) return
+    console.log('notification', notification)
     const payload = notification.data as unknown as NotificationPayload
     console.log('payload', payload)
     switch (payload.type) {
@@ -78,7 +80,7 @@ export function useNotificationsHandler() {
       case 'inprogress-order':
         return navigation.navigate('OrderDetails', {id: payload.orderId})
       default:
-        return navigation.navigate('Notification')
+        return CommonActions.navigate('Notifications')
     }
     // if (payload.type === 'new-order') {
     //   // casting data payload based on type

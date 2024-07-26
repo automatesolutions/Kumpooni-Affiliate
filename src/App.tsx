@@ -26,12 +26,6 @@ function InnerApp() {
   const theme = useColorModeTheme()
   const {session} = useSession()
 
-  React.useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      await notification.onDisplayNotification(remoteMessage)
-    })
-    return unsubscribe
-  }, [])
   return (
     <SafeAreaProvider>
       <LoggedOutViewProvider>
