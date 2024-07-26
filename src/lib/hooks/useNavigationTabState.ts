@@ -6,14 +6,14 @@ export function useNavigationTabState() {
     const res = {
       isAtHome: getTabState(state, 'Home') !== TabState.Outside,
       isAtOrders: getTabState(state, 'Orders') !== TabState.Outside,
-      isAtService: getTabState(state, 'Service') !== TabState.Outside,
+      isAtServices: getTabState(state, 'Services') !== TabState.Outside,
       isAtParts: getTabState(state, 'Parts') !== TabState.Outside,
       isAtSettings: getTabState(state, 'Settings') !== TabState.Outside,
     }
     if (
       !res.isAtHome &&
       !res.isAtOrders &&
-      !res.isAtService &&
+      !res.isAtServices &&
       !res.isAtParts &&
       !res.isAtSettings
     ) {

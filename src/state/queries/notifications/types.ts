@@ -1,5 +1,5 @@
-import { Database, Tables } from '#/database'
-import { SupabaseClient } from '@supabase/supabase-js'
+import {Database, Tables} from '#/types/supabase'
+import {SupabaseClient} from '@supabase/supabase-js'
 
 export type NotifCategoryType =
   | 'New Order'
@@ -49,7 +49,7 @@ export async function getNotifUnreadCount(
   client: SupabaseClient<Database>,
   id: string,
 ) {
-  return client.rpc('get_notification_counts', { storeid: id })
+  return client.rpc('get_notification_counts', {storeid: id})
 }
 
 export type NotifUnreadCount = NonNullable<

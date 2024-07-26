@@ -210,7 +210,7 @@ function ServicesTable({storeId}: {storeId: string}) {
           ListEmptyComponent={
             isLoading || isRefetching ? (
               <View style={[a.py_2xs]}>
-                <ActivityIndicator size={'large'} />
+                <ActivityIndicator size={'large'} color={'red'} />
               </View>
             ) : (
               <ListEmptyItem style={{paddingTop: 100}} />

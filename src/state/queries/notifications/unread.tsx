@@ -10,7 +10,7 @@ import {AppState} from 'react-native'
 import {useQueryClient} from '@tanstack/react-query'
 import {truncateAndInvalidate} from '../util'
 import {RQKEY as RQKEY_NOTIFS} from './count'
-import {resetBadgeCount} from '#/lib/notification'
+import {resetBadgeCount} from 'lib/notifications'
 
 type StateContext = string
 const stateContext = React.createContext<StateContext>('')

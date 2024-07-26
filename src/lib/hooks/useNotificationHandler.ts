@@ -1,19 +1,17 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, {useCallback, useEffect, useRef} from 'react'
 
-import { CommonActions, useNavigation } from '@react-navigation/native'
+import {CommonActions, useNavigation} from '@react-navigation/native'
 
-import { NavigationProp } from '../routes/types'
+import {NavigationProp} from '../routes/types'
 
 import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging'
-import { setupAndroidChannel } from '../notification/setupAndroidChannels'
-import * as notification from '#/lib/notification'
-import notifee, {
-  Event as NotifeeEvent,
-  EventType,
-} from '@notifee/react-native'
-import { logger } from '#/logger'
+import {setupAndroidChannel} from 'lib/notifications/setupAndroidChannels'
+import * as notification from 'lib/notifications'
+import notifee, {Event as NotifeeEvent, EventType} from '@notifee/react-native'
+import {logger} from '#/logger'
+import {MinimalNotification, NotificationPayload} from '../notifications/types'
 
 type Callback = () => void
 
@@ -36,6 +34,7 @@ export function useNotificationsHandler() {
     payload: FirebaseMessagingTypes.RemoteMessage,
   ) => {
     const type = payload.data?.type
+    console.log('type', type)
     notification.onDisplayNotification(payload)
   }
 
@@ -58,52 +57,70 @@ export function useNotificationsHandler() {
     payload: FirebaseMessagingTypes.RemoteMessage | null,
   ) => {
     if (!payload) return
-    const data = payload.data as unknown as NotificationPayload
-    const notification = createNotification(data)
+    logger.debug('handleAppOpenedWithNotification', {payload})
+    // const data = payload.data as unknown as NotificationPayload
+    const notification: MinimalNotification = {
+      title: payload.notification?.title,
+      body: payload.notification?.body,
+      data: payload.data,
+    }
+    // const notification = createNotification(data)
     handleOpenedNotification(notification)
   }
-  const handleOpenedNotification = (notification?: NotificationPayload) => {
+  const handleOpenedNotification = (notification?: MinimalNotification) => {
     if (!notification) return
-
-    if (notification.type === 'new-order') {
-      // casting data payload based on type
-      navigation.dispatch(state => {
-        if (state.routes[0].name === 'Order') {
-          if (state.routes[state.routes.length - 1].name === 'OrderDetails') {
-            return CommonActions.reset({
-              ...state,
-              routes: [
-                ...state.routes.slice(0, state.routes.length - 1),
-                {
-                  name: 'OrderDetails',
-                  params: {
-                    id: notification.orderId,
-                  },
-                },
-              ],
-            })
-          } else {
-            return CommonActions.navigate('OrderDetails', {
-              id: notification.orderId,
-            })
-          }
-        } else {
-          return CommonActions.navigate('OrdersTab', {
-            screen: 'Order',
-            params: {},
-          })
-        }
-      })
-    } else {
-      logger.warn(`NotificationsHandler: received unknown notification`, {
-        notification,
-      })
+    const payload = notification.data as unknown as NotificationPayload
+    console.log('payload', payload)
+    switch (payload.type) {
+      case 'new-order':
+      case 'canceled-order':
+      case 'completed-order':
+      case 'inprogress-order':
+        return navigation.navigate('OrderDetails', {id: payload.orderId})
+      default:
+        return navigation.navigate('Notification')
     }
+    // if (payload.type === 'new-order') {
+    //   // casting data payload based on type
+    //   navigation.dispatch(state => {
+    //     if (state.routes[0].name === 'Order') {
+    //       if (state.routes[state.routes.length - 1].name === 'OrderDetails') {
+    //         return CommonActions.reset({
+    //           ...state,
+    //           routes: [
+    //             ...state.routes.slice(0, state.routes.length - 1),
+    //             {
+    //               name: 'OrderDetails',
+    //               params: {
+    //                 id: payload.orderId,
+    //               },
+    //             },
+    //           ],
+    //         })
+    //       } else {
+    //         return CommonActions.navigate('OrderDetails', {
+    //           id: payload.orderId,
+    //         })
+    //       }
+    //     } else {
+    //       return CommonActions.navigate('OrdersTab', {
+    //         screen: 'Order',
+    //         params: {},
+    //       })
+    //     }
+    //   })
+    // } else {
+    //   logger.warn(`NotificationsHandler: received unknown notification`, {
+    //     notification,
+    //   })
+    // }
   }
 
   const handleNotificationPressed = (event: NotifeeEvent) => {
     if (event.type === EventType.PRESS) {
-      handleOpenedNotification(event.detail.notification as NotificationPayload)
+      handleOpenedNotification(
+        event.detail.notification as FirebaseMessagingTypes.RemoteMessage,
+      )
     }
   }
 

@@ -8,10 +8,10 @@ type NotificationType =
   | 'services'
   | 'updates'
 
-type NotificationPayload =
+export type NotificationPayload =
   | {
       type: Exclude<NotificationType, 'important'>
-      orderId: number
+      orderId: string
       referenceNo: number
     }
   | {
@@ -19,10 +19,16 @@ type NotificationPayload =
       templateId: number
     }
 
+export interface MinimalNotification {
+  data?: {[key: string]: string | object}
+  title?: string
+  body?: string
+}
+
 type NotificationData =
   | {
       type: Exclude<NotificationType, 'important'>
-      orderId: number
+      orderId: string
       referenceNo: number
       picture?: string
     }
