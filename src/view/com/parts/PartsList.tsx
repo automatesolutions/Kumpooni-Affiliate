@@ -57,8 +57,8 @@ export function PartsList(props: PartsListProps) {
     [openModal],
   )
 
-  // const isEmpty = !isFetching && !data?.length
-  const isEmpty = true
+  const isEmpty = !isFetching && !data?.length
+
   const items = React.useMemo(() => {
     let items: any[] = []
     if (isError && isEmpty) {

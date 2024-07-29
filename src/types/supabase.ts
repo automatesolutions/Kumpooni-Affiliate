@@ -3,7 +3,7 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json | undefined }
+  | {[key: string]: Json | undefined}
   | Json[]
 
 export type Database = {
@@ -48,39 +48,39 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "address_barangay_id_fkey"
-            columns: ["barangay_id"]
+            foreignKeyName: 'address_barangay_id_fkey'
+            columns: ['barangay_id']
             isOneToOne: false
-            referencedRelation: "barangay"
-            referencedColumns: ["id"]
+            referencedRelation: 'barangay'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "address_city_id_fkey"
-            columns: ["city_id"]
+            foreignKeyName: 'address_city_id_fkey'
+            columns: ['city_id']
             isOneToOne: false
-            referencedRelation: "city"
-            referencedColumns: ["id"]
+            referencedRelation: 'city'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "address_province_id_fkey"
-            columns: ["province_id"]
+            foreignKeyName: 'address_province_id_fkey'
+            columns: ['province_id']
             isOneToOne: false
-            referencedRelation: "province"
-            referencedColumns: ["id"]
+            referencedRelation: 'province'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "address_region_id_fkey"
-            columns: ["region_id"]
+            foreignKeyName: 'address_region_id_fkey'
+            columns: ['region_id']
             isOneToOne: false
-            referencedRelation: "regions"
-            referencedColumns: ["id"]
+            referencedRelation: 'regions'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "address_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'address_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -102,11 +102,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "barangay_city_id_fkey"
-            columns: ["city_id"]
+            foreignKeyName: 'barangay_city_id_fkey'
+            columns: ['city_id']
             isOneToOne: false
-            referencedRelation: "city"
-            referencedColumns: ["id"]
+            referencedRelation: 'city'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -179,11 +179,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "category_parent_id_fkey"
-            columns: ["parent_id"]
+            foreignKeyName: 'category_parent_id_fkey'
+            columns: ['parent_id']
             isOneToOne: false
-            referencedRelation: "category"
-            referencedColumns: ["id"]
+            referencedRelation: 'category'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -205,11 +205,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "city_province_id_fkey"
-            columns: ["province_id"]
+            foreignKeyName: 'city_province_id_fkey'
+            columns: ['province_id']
             isOneToOne: false
-            referencedRelation: "province"
-            referencedColumns: ["id"]
+            referencedRelation: 'province'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -240,21 +240,21 @@ export type Database = {
           created_at: string
           id: number
           title: string | null
-          type: Database["public"]["Enums"]["answer_type"] | null
+          type: Database['public']['Enums']['answer_type'] | null
         }
         Insert: {
           answer?: string | null
           created_at?: string
           id?: number
           title?: string | null
-          type?: Database["public"]["Enums"]["answer_type"] | null
+          type?: Database['public']['Enums']['answer_type'] | null
         }
         Update: {
           answer?: string | null
           created_at?: string
           id?: number
           title?: string | null
-          type?: Database["public"]["Enums"]["answer_type"] | null
+          type?: Database['public']['Enums']['answer_type'] | null
         }
         Relationships: []
       }
@@ -285,18 +285,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "holiday_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'holiday_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "holiday_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'holiday_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -318,11 +318,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "model_brand_id_fkey"
-            columns: ["brand_id"]
+            foreignKeyName: 'model_brand_id_fkey'
+            columns: ['brand_id']
             isOneToOne: false
-            referencedRelation: "brand"
-            referencedColumns: ["id"]
+            referencedRelation: 'brand'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -359,11 +359,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "notification_category_id_fkey"
-            columns: ["category_id"]
+            foreignKeyName: 'notification_category_id_fkey'
+            columns: ['category_id']
             isOneToOne: false
-            referencedRelation: "notification_category"
-            referencedColumns: ["id"]
+            referencedRelation: 'notification_category'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -397,11 +397,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "notification_category_parent_id_fkey"
-            columns: ["parent_id"]
+            foreignKeyName: 'notification_category_parent_id_fkey'
+            columns: ['parent_id']
             isOneToOne: false
-            referencedRelation: "notification_category"
-            referencedColumns: ["id"]
+            referencedRelation: 'notification_category'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -409,31 +409,31 @@ export type Database = {
         Row: {
           app_id: string
           created_at: string
-          platform: Database["public"]["Enums"]["platform_type"]
+          platform: Database['public']['Enums']['platform_type']
           token: string
           user_id: string
         }
         Insert: {
           app_id: string
           created_at?: string
-          platform: Database["public"]["Enums"]["platform_type"]
+          platform: Database['public']['Enums']['platform_type']
           token: string
           user_id: string
         }
         Update: {
           app_id?: string
           created_at?: string
-          platform?: Database["public"]["Enums"]["platform_type"]
+          platform?: Database['public']['Enums']['platform_type']
           token?: string
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "notification_push_token_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'notification_push_token_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -470,25 +470,25 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "notification_store_category_id_fkey"
-            columns: ["category_id"]
+            foreignKeyName: 'notification_store_category_id_fkey'
+            columns: ['category_id']
             isOneToOne: false
-            referencedRelation: "notification_category"
-            referencedColumns: ["id"]
+            referencedRelation: 'notification_category'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "notification_store_order_id_fkey"
-            columns: ["order_id"]
+            foreignKeyName: 'notification_store_order_id_fkey'
+            columns: ['order_id']
             isOneToOne: false
-            referencedRelation: "repair_order"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_order'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "notification_store_order_id_fkey"
-            columns: ["order_id"]
+            foreignKeyName: 'notification_store_order_id_fkey'
+            columns: ['order_id']
             isOneToOne: false
-            referencedRelation: "repair_orders"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_orders'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -503,7 +503,7 @@ export type Database = {
           read_at: string | null
           repair_order_id: string | null
           store_id: string | null
-          type: Database["public"]["Enums"]["notification_type"]
+          type: Database['public']['Enums']['notification_type']
           user_id: string | null
         }
         Insert: {
@@ -516,7 +516,7 @@ export type Database = {
           read_at?: string | null
           repair_order_id?: string | null
           store_id?: string | null
-          type?: Database["public"]["Enums"]["notification_type"]
+          type?: Database['public']['Enums']['notification_type']
           user_id?: string | null
         }
         Update: {
@@ -529,44 +529,44 @@ export type Database = {
           read_at?: string | null
           repair_order_id?: string | null
           store_id?: string | null
-          type?: Database["public"]["Enums"]["notification_type"]
+          type?: Database['public']['Enums']['notification_type']
           user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "notifications_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'notifications_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_order"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_order'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "notifications_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'notifications_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_orders"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_orders'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "notifications_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'notifications_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "notifications_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'notifications_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "notifications_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'notifications_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -657,25 +657,25 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "parts_category_id_fkey"
-            columns: ["category_id"]
+            foreignKeyName: 'parts_category_id_fkey'
+            columns: ['category_id']
             isOneToOne: false
-            referencedRelation: "category"
-            referencedColumns: ["id"]
+            referencedRelation: 'category'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "parts_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'parts_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "parts_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'parts_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -712,11 +712,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_parts_inventory_part_sku_number_fkey"
-            columns: ["part_sku_number"]
+            foreignKeyName: 'public_parts_inventory_part_sku_number_fkey'
+            columns: ['part_sku_number']
             isOneToOne: false
-            referencedRelation: "parts"
-            referencedColumns: ["id"]
+            referencedRelation: 'parts'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -728,7 +728,7 @@ export type Database = {
           description: string | null
           id: number
           payment_date: string | null
-          payment_method: Database["public"]["Enums"]["payment_method_type"]
+          payment_method: Database['public']['Enums']['payment_method_type']
           reference_no: string | null
           repair_order_id: string
           store_id: string | null
@@ -742,7 +742,7 @@ export type Database = {
           description?: string | null
           id?: number
           payment_date?: string | null
-          payment_method: Database["public"]["Enums"]["payment_method_type"]
+          payment_method: Database['public']['Enums']['payment_method_type']
           reference_no?: string | null
           repair_order_id: string
           store_id?: string | null
@@ -756,7 +756,7 @@ export type Database = {
           description?: string | null
           id?: number
           payment_date?: string | null
-          payment_method?: Database["public"]["Enums"]["payment_method_type"]
+          payment_method?: Database['public']['Enums']['payment_method_type']
           reference_no?: string | null
           repair_order_id?: string
           store_id?: string | null
@@ -765,46 +765,46 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "payments_created_by_fkey"
-            columns: ["created_by"]
+            foreignKeyName: 'payments_created_by_fkey'
+            columns: ['created_by']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "payments_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'payments_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_order"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_order'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "payments_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'payments_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_orders"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_orders'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "payments_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'payments_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "payments_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'payments_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "payments_updated_by_fkey"
-            columns: ["updated_by"]
+            foreignKeyName: 'payments_updated_by_fkey'
+            columns: ['updated_by']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -826,11 +826,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "province_region_id_fkey"
-            columns: ["region_id"]
+            foreignKeyName: 'province_region_id_fkey'
+            columns: ['region_id']
             isOneToOne: false
-            referencedRelation: "regions"
-            referencedColumns: ["id"]
+            referencedRelation: 'regions'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -858,11 +858,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "questions_diagnostic_id_fkey"
-            columns: ["diagnostic_id"]
+            foreignKeyName: 'questions_diagnostic_id_fkey'
+            columns: ['diagnostic_id']
             isOneToOne: false
-            referencedRelation: "diagnostic"
-            referencedColumns: ["id"]
+            referencedRelation: 'diagnostic'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -892,10 +892,10 @@ export type Database = {
           created_at: string
           id: string
           internal_notes: string | null
-          invoice_status: Database["public"]["Enums"]["invoice_status"] | null
+          invoice_status: Database['public']['Enums']['invoice_status'] | null
           priority: string | null
           reference_no: number
-          status: Database["public"]["Enums"]["repair_order_status"]
+          status: Database['public']['Enums']['notification_type'] | null
           store_id: string
           total_cost: number | null
           updated_at: string | null
@@ -909,10 +909,10 @@ export type Database = {
           created_at?: string
           id?: string
           internal_notes?: string | null
-          invoice_status?: Database["public"]["Enums"]["invoice_status"] | null
+          invoice_status?: Database['public']['Enums']['invoice_status'] | null
           priority?: string | null
           reference_no?: number
-          status?: Database["public"]["Enums"]["repair_order_status"]
+          status?: Database['public']['Enums']['notification_type'] | null
           store_id: string
           total_cost?: number | null
           updated_at?: string | null
@@ -926,10 +926,10 @@ export type Database = {
           created_at?: string
           id?: string
           internal_notes?: string | null
-          invoice_status?: Database["public"]["Enums"]["invoice_status"] | null
+          invoice_status?: Database['public']['Enums']['invoice_status'] | null
           priority?: string | null
           reference_no?: number
-          status?: Database["public"]["Enums"]["repair_order_status"]
+          status?: Database['public']['Enums']['notification_type'] | null
           store_id?: string
           total_cost?: number | null
           updated_at?: string | null
@@ -938,32 +938,32 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "repair_order_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'repair_order_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'repair_order_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'repair_order_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_vehicle_id_fkey"
-            columns: ["vehicle_id"]
+            foreignKeyName: 'repair_order_vehicle_id_fkey'
+            columns: ['vehicle_id']
             isOneToOne: false
-            referencedRelation: "vehicle"
-            referencedColumns: ["id"]
+            referencedRelation: 'vehicle'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1003,46 +1003,46 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "repair_order_line_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'repair_order_line_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_order"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_order'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_line_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'repair_order_line_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_orders"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_orders'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_line_service_id_fkey"
-            columns: ["service_id"]
+            foreignKeyName: 'repair_order_line_service_id_fkey'
+            columns: ['service_id']
             isOneToOne: false
-            referencedRelation: "service"
-            referencedColumns: ["id"]
+            referencedRelation: 'service'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_line_service_id_fkey"
-            columns: ["service_id"]
+            foreignKeyName: 'repair_order_line_service_id_fkey'
+            columns: ['service_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["service_id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['service_id']
           },
           {
-            foreignKeyName: "repair_order_line_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'repair_order_line_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_line_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'repair_order_line_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1094,46 +1094,46 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "repair_order_line_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'repair_order_line_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_line_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'repair_order_line_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_part_part_id_fkey"
-            columns: ["part_id"]
+            foreignKeyName: 'repair_order_part_part_id_fkey'
+            columns: ['part_id']
             isOneToOne: false
-            referencedRelation: "parts"
-            referencedColumns: ["id"]
+            referencedRelation: 'parts'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_part_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'repair_order_part_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_order"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_order'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_part_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'repair_order_part_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_orders"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_orders'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_part_repair_order_line_id_fkey"
-            columns: ["repair_order_line_id"]
+            foreignKeyName: 'repair_order_part_repair_order_line_id_fkey'
+            columns: ['repair_order_line_id']
             isOneToOne: false
-            referencedRelation: "repair_order_line"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_order_line'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1143,43 +1143,43 @@ export type Database = {
           created_by: string | null
           id: number
           repair_order_id: string
-          status: Database["public"]["Enums"]["invoice_status"]
+          status: Database['public']['Enums']['invoice_status']
         }
         Insert: {
           created_at?: string
           created_by?: string | null
           id?: number
           repair_order_id: string
-          status: Database["public"]["Enums"]["invoice_status"]
+          status: Database['public']['Enums']['invoice_status']
         }
         Update: {
           created_at?: string
           created_by?: string | null
           id?: number
           repair_order_id?: string
-          status?: Database["public"]["Enums"]["invoice_status"]
+          status?: Database['public']['Enums']['invoice_status']
         }
         Relationships: [
           {
-            foreignKeyName: "repair_order_status_history_created_by_fkey"
-            columns: ["created_by"]
+            foreignKeyName: 'repair_order_status_history_created_by_fkey'
+            columns: ['created_by']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_status_history_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'repair_order_status_history_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_order"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_order'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_status_history_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'repair_order_status_history_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_orders"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_orders'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1219,71 +1219,71 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "reviews_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'reviews_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_order"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_order'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "reviews_repair_order_id_fkey"
-            columns: ["repair_order_id"]
+            foreignKeyName: 'reviews_repair_order_id_fkey'
+            columns: ['repair_order_id']
             isOneToOne: false
-            referencedRelation: "repair_orders"
-            referencedColumns: ["id"]
+            referencedRelation: 'repair_orders'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "reviews_service_id_fkey"
-            columns: ["service_id"]
+            foreignKeyName: 'reviews_service_id_fkey'
+            columns: ['service_id']
             isOneToOne: false
-            referencedRelation: "service"
-            referencedColumns: ["id"]
+            referencedRelation: 'service'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "reviews_service_id_fkey"
-            columns: ["service_id"]
+            foreignKeyName: 'reviews_service_id_fkey'
+            columns: ['service_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["service_id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['service_id']
           },
           {
-            foreignKeyName: "reviews_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'reviews_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "reviews_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'reviews_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "reviews_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'reviews_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
       role_permissions: {
         Row: {
           id: number
-          permission: Database["public"]["Enums"]["app_permission"]
-          role: Database["public"]["Enums"]["app_role"]
+          permission: Database['public']['Enums']['app_permission']
+          role: Database['public']['Enums']['app_role']
         }
         Insert: {
           id?: number
-          permission: Database["public"]["Enums"]["app_permission"]
-          role: Database["public"]["Enums"]["app_role"]
+          permission: Database['public']['Enums']['app_permission']
+          role: Database['public']['Enums']['app_role']
         }
         Update: {
           id?: number
-          permission?: Database["public"]["Enums"]["app_permission"]
-          role?: Database["public"]["Enums"]["app_role"]
+          permission?: Database['public']['Enums']['app_permission']
+          role?: Database['public']['Enums']['app_role']
         }
         Relationships: []
       }
@@ -1301,12 +1301,12 @@ export type Database = {
           minimum_qty: number | null
           name: string
           price: number
-          service_type: Database["public"]["Enums"]["service_type"]
+          service_type: Database['public']['Enums']['service_type']
           short_description: string | null
           source_id: number | null
-          status: Database["public"]["Enums"]["serviceStatus"]
+          status: Database['public']['Enums']['serviceStatus']
           store_id: string | null
-          type: Database["public"]["Enums"]["serviceItemType"]
+          type: Database['public']['Enums']['serviceItemType']
           unit_measure: string | null
           updated_at: string | null
         }
@@ -1323,12 +1323,12 @@ export type Database = {
           minimum_qty?: number | null
           name: string
           price: number
-          service_type?: Database["public"]["Enums"]["service_type"]
+          service_type?: Database['public']['Enums']['service_type']
           short_description?: string | null
           source_id?: number | null
-          status?: Database["public"]["Enums"]["serviceStatus"]
+          status?: Database['public']['Enums']['serviceStatus']
           store_id?: string | null
-          type: Database["public"]["Enums"]["serviceItemType"]
+          type: Database['public']['Enums']['serviceItemType']
           unit_measure?: string | null
           updated_at?: string | null
         }
@@ -1345,50 +1345,50 @@ export type Database = {
           minimum_qty?: number | null
           name?: string
           price?: number
-          service_type?: Database["public"]["Enums"]["service_type"]
+          service_type?: Database['public']['Enums']['service_type']
           short_description?: string | null
           source_id?: number | null
-          status?: Database["public"]["Enums"]["serviceStatus"]
+          status?: Database['public']['Enums']['serviceStatus']
           store_id?: string | null
-          type?: Database["public"]["Enums"]["serviceItemType"]
+          type?: Database['public']['Enums']['serviceItemType']
           unit_measure?: string | null
           updated_at?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "public_service_category_id_fkey"
-            columns: ["category_id"]
+            foreignKeyName: 'public_service_category_id_fkey'
+            columns: ['category_id']
             isOneToOne: false
-            referencedRelation: "categories"
-            referencedColumns: ["id"]
+            referencedRelation: 'categories'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "public_service_source_id_fkey"
-            columns: ["source_id"]
+            foreignKeyName: 'public_service_source_id_fkey'
+            columns: ['source_id']
             isOneToOne: false
-            referencedRelation: "service"
-            referencedColumns: ["id"]
+            referencedRelation: 'service'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "public_service_source_id_fkey"
-            columns: ["source_id"]
+            foreignKeyName: 'public_service_source_id_fkey'
+            columns: ['source_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["service_id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['service_id']
           },
           {
-            foreignKeyName: "public_service_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'public_service_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "public_service_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'public_service_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1406,7 +1406,7 @@ export type Database = {
           quantity: number | null
           service_id: number
           store_id: string
-          type: Database["public"]["Enums"]["serviceLineType"]
+          type: Database['public']['Enums']['serviceLineType']
           udpated_at: string | null
         }
         Insert: {
@@ -1422,7 +1422,7 @@ export type Database = {
           quantity?: number | null
           service_id: number
           store_id: string
-          type: Database["public"]["Enums"]["serviceLineType"]
+          type: Database['public']['Enums']['serviceLineType']
           udpated_at?: string | null
         }
         Update: {
@@ -1438,44 +1438,44 @@ export type Database = {
           quantity?: number | null
           service_id?: number
           store_id?: string
-          type?: Database["public"]["Enums"]["serviceLineType"]
+          type?: Database['public']['Enums']['serviceLineType']
           udpated_at?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "service_line_part_id_fkey"
-            columns: ["part_id"]
+            foreignKeyName: 'service_line_part_id_fkey'
+            columns: ['part_id']
             isOneToOne: false
-            referencedRelation: "parts"
-            referencedColumns: ["id"]
+            referencedRelation: 'parts'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "service_line_service_id_fkey"
-            columns: ["service_id"]
+            foreignKeyName: 'service_line_service_id_fkey'
+            columns: ['service_id']
             isOneToOne: false
-            referencedRelation: "service"
-            referencedColumns: ["id"]
+            referencedRelation: 'service'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "service_line_service_id_fkey"
-            columns: ["service_id"]
+            foreignKeyName: 'service_line_service_id_fkey'
+            columns: ['service_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["service_id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['service_id']
           },
           {
-            foreignKeyName: "service_line_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'service_line_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "service_line_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'service_line_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1557,25 +1557,25 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "store_categories_category_id_fkey"
-            columns: ["category_id"]
+            foreignKeyName: 'store_categories_category_id_fkey'
+            columns: ['category_id']
             isOneToOne: false
-            referencedRelation: "categories"
-            referencedColumns: ["id"]
+            referencedRelation: 'categories'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "store_categories_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'store_categories_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "store_categories_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'store_categories_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1603,18 +1603,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "store_closed_dates_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'store_closed_dates_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "store_closed_dates_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'store_closed_dates_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1660,39 +1660,39 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "store_notifications_category_id_fkey"
-            columns: ["category_id"]
+            foreignKeyName: 'store_notifications_category_id_fkey'
+            columns: ['category_id']
             isOneToOne: false
-            referencedRelation: "notification_category"
-            referencedColumns: ["id"]
+            referencedRelation: 'notification_category'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "store_notifications_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'store_notifications_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "store_notifications_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'store_notifications_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "store_notifications_sub_category_id_fkey"
-            columns: ["sub_category_id"]
+            foreignKeyName: 'store_notifications_sub_category_id_fkey'
+            columns: ['sub_category_id']
             isOneToOne: false
-            referencedRelation: "notification_category"
-            referencedColumns: ["id"]
+            referencedRelation: 'notification_category'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "store_notifications_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'store_notifications_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1729,18 +1729,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "store_schedule_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'store_schedule_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "store_schedule_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'store_schedule_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1783,51 +1783,51 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "user_notifications_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'user_notifications_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
       user_roles: {
         Row: {
-          role: Database["public"]["Enums"]["app_role"]
+          role: Database['public']['Enums']['app_role']
           store_id: string
           user_id: string
         }
         Insert: {
-          role: Database["public"]["Enums"]["app_role"]
+          role: Database['public']['Enums']['app_role']
           store_id: string
           user_id: string
         }
         Update: {
-          role?: Database["public"]["Enums"]["app_role"]
+          role?: Database['public']['Enums']['app_role']
           store_id?: string
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "user_roles_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'user_roles_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "user_roles_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'user_roles_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "user_roles_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'user_roles_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1873,11 +1873,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "users_id_fkey"
-            columns: ["id"]
+            foreignKeyName: 'users_id_fkey'
+            columns: ['id']
             isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1914,25 +1914,25 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "vehicle_brand_id_fkey"
-            columns: ["brand_id"]
+            foreignKeyName: 'vehicle_brand_id_fkey'
+            columns: ['brand_id']
             isOneToOne: false
-            referencedRelation: "brand"
-            referencedColumns: ["id"]
+            referencedRelation: 'brand'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "vehicle_model_id_fkey"
-            columns: ["model_id"]
+            foreignKeyName: 'vehicle_model_id_fkey'
+            columns: ['model_id']
             isOneToOne: false
-            referencedRelation: "model"
-            referencedColumns: ["id"]
+            referencedRelation: 'model'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "vehicle_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'vehicle_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -1957,7 +1957,7 @@ export type Database = {
           created_at: string | null
           first_name: string | null
           id: string | null
-          invoice_status: Database["public"]["Enums"]["invoice_status"] | null
+          invoice_status: Database['public']['Enums']['invoice_status'] | null
           last_name: string | null
           make: string | null
           model: string | null
@@ -1967,7 +1967,7 @@ export type Database = {
           phone: string | null
           reference_no: number | null
           services_total: number | null
-          status: Database["public"]["Enums"]["repair_order_status"] | null
+          status: Database['public']['Enums']['notification_type'] | null
           store_id: string | null
           total_cost: number | null
           user_id: string | null
@@ -1976,32 +1976,32 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "repair_order_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'repair_order_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store"
-            referencedColumns: ["id"]
+            referencedRelation: 'store'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_store_id_fkey"
-            columns: ["store_id"]
+            foreignKeyName: 'repair_order_store_id_fkey'
+            columns: ['store_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: 'repair_order_user_id_fkey'
+            columns: ['user_id']
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "repair_order_vehicle_id_fkey"
-            columns: ["vehicle_id"]
+            foreignKeyName: 'repair_order_vehicle_id_fkey'
+            columns: ['vehicle_id']
             isOneToOne: false
-            referencedRelation: "vehicle"
-            referencedColumns: ["id"]
+            referencedRelation: 'vehicle'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -2021,7 +2021,7 @@ export type Database = {
           name: string | null
           outside_img: string | null
           price: number | null
-          s: Database["public"]["Tables"]["store"]["Row"] | null
+          s: Database['public']['Tables']['store']['Row'] | null
           service: Json | null
           service_id: number | null
           source_id: number | null
@@ -2031,18 +2031,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_service_source_id_fkey"
-            columns: ["source_id"]
+            foreignKeyName: 'public_service_source_id_fkey'
+            columns: ['source_id']
             isOneToOne: false
-            referencedRelation: "service"
-            referencedColumns: ["id"]
+            referencedRelation: 'service'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "public_service_source_id_fkey"
-            columns: ["source_id"]
+            foreignKeyName: 'public_service_source_id_fkey'
+            columns: ['source_id']
             isOneToOne: false
-            referencedRelation: "store_services"
-            referencedColumns: ["service_id"]
+            referencedRelation: 'store_services'
+            referencedColumns: ['service_id']
           },
         ]
       }
@@ -2054,7 +2054,7 @@ export type Database = {
       }
       authorize: {
         Args: {
-          requested_permission: Database["public"]["Enums"]["app_permission"]
+          requested_permission: Database['public']['Enums']['app_permission']
         }
         Returns: boolean
       }
@@ -2063,12 +2063,6 @@ export type Database = {
           user_id: string
         }
         Returns: undefined
-      }
-      count_unread_notifications: {
-        Args: {
-          user_id_param: string
-        }
-        Returns: number
       }
       create_repair_order: {
         Args: {
@@ -2104,11 +2098,11 @@ export type Database = {
           inclusion: string[]
           category_id: number
           img_url: string
-          service_type: Database["public"]["Enums"]["service_type"]
+          service_type: Database['public']['Enums']['service_type']
           is_car_required: boolean
           is_active: boolean
-          status: Database["public"]["Enums"]["serviceStatus"]
-          type: Database["public"]["Enums"]["serviceItemType"]
+          status: Database['public']['Enums']['serviceStatus']
+          type: Database['public']['Enums']['serviceItemType']
           categories: Json
         }[]
       }
@@ -2259,16 +2253,6 @@ export type Database = {
           week_day: string
         }[]
       }
-      get_store_performance: {
-        Args: {
-          store_id: string
-        }
-        Returns: {
-          order_count: number
-          total: number
-          cars_serviced: number
-        }[]
-      }
       is_slot_available: {
         Args: {
           storeid: string
@@ -2363,55 +2347,55 @@ export type Database = {
       }
     }
     Enums: {
-      answer_type: "text" | "image"
+      answer_type: 'text' | 'image'
       app_permission:
-        | "store.view"
-        | "store.create"
-        | "store.update"
-        | "store.delete"
-        | "service.view"
-        | "service.create"
-        | "service.update"
-        | "service.delete"
-        | "vehicle.view"
-        | "vehicle.create"
-        | "vehicle.update"
-        | "vehicle.delete"
-        | "users.view"
-      app_role: "admin" | "manager"
+        | 'store.view'
+        | 'store.create'
+        | 'store.update'
+        | 'store.delete'
+        | 'service.view'
+        | 'service.create'
+        | 'service.update'
+        | 'service.delete'
+        | 'vehicle.view'
+        | 'vehicle.create'
+        | 'vehicle.update'
+        | 'vehicle.delete'
+        | 'users.view'
+      app_role: 'admin' | 'manager'
       invoice_status:
-        | "Paid"
-        | "Unpaid"
-        | "Partially"
-        | "Void"
-        | "Uncollectible"
-        | "Draft"
-        | "Open"
+        | 'Paid'
+        | 'Unpaid'
+        | 'Partially'
+        | 'Void'
+        | 'Uncollectible'
+        | 'Draft'
+        | 'Open'
       notification_type:
-        | "scheduled"
-        | "inprogress"
-        | "awaiting-parts"
-        | "canceled"
-        | "completed"
-        | "new-order"
-        | "canceled-order"
-        | "completed-order"
-        | "store"
-        | "services"
-        | "updates"
-        | "default"
-      payment_method_type: "Cash" | "Gcash" | "Bank" | "Maya" | "Online Banking"
-      platform_type: "ios" | "android" | "web"
+        | 'scheduled'
+        | 'inprogress'
+        | 'awaiting-parts'
+        | 'canceled'
+        | 'completed'
+        | 'new-order'
+        | 'canceled-order'
+        | 'completed-order'
+        | 'store'
+        | 'services'
+        | 'updates'
+        | 'default'
+      payment_method_type: 'Cash' | 'Gcash' | 'Bank' | 'Maya' | 'Online Banking'
+      platform_type: 'ios' | 'android' | 'web'
       repair_order_status:
-        | "Scheduled"
-        | "In Progress"
-        | "Awaiting Parts"
-        | "Canceled"
-        | "Completed"
-      service_type: "In-Store" | "Home Service" | "OrderDelivery"
-      serviceItemType: "Product" | "Service"
-      serviceLineType: "Part" | "Labor" | "Fee"
-      serviceStatus: "Draft" | "Active" | "Inactive" | "Reviewed" | "Deleted"
+        | 'Scheduled'
+        | 'In Progress'
+        | 'Awaiting Parts'
+        | 'Canceled'
+        | 'Completed'
+      service_type: 'In-Store' | 'Home Service' | 'OrderDelivery'
+      serviceItemType: 'Product' | 'Service'
+      serviceLineType: 'Part' | 'Labor' | 'Fee'
+      serviceStatus: 'Draft' | 'Active' | 'Inactive' | 'Reviewed' | 'Deleted'
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2419,84 +2403,84 @@ export type Database = {
   }
 }
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type PublicSchema = Database[Extract<keyof Database, 'public'>]
 
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    | keyof (PublicSchema['Tables'] & PublicSchema['Views'])
+    | {schema: keyof Database},
+  TableName extends PublicTableNameOrOptions extends {schema: keyof Database}
+    ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
+        Database[PublicTableNameOrOptions['schema']]['Views'])
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = PublicTableNameOrOptions extends {schema: keyof Database}
+  ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
+      Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-        PublicSchema["Views"])
-    ? (PublicSchema["Tables"] &
-        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R
-      }
-      ? R
-      : never
+  : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] &
+      PublicSchema['Views'])
+  ? (PublicSchema['Tables'] &
+      PublicSchema['Views'])[PublicTableNameOrOptions] extends {
+      Row: infer R
+    }
+    ? R
     : never
+  : never
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    | keyof PublicSchema['Tables']
+    | {schema: keyof Database},
+  TableName extends PublicTableNameOrOptions extends {schema: keyof Database}
+    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = PublicTableNameOrOptions extends {schema: keyof Database}
+  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I
-      }
-      ? I
-      : never
+  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
+  ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+      Insert: infer I
+    }
+    ? I
     : never
+  : never
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    | keyof PublicSchema['Tables']
+    | {schema: keyof Database},
+  TableName extends PublicTableNameOrOptions extends {schema: keyof Database}
+    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = PublicTableNameOrOptions extends {schema: keyof Database}
+  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U
-      }
-      ? U
-      : never
+  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
+  ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+      Update: infer U
+    }
+    ? U
     : never
+  : never
 
 export type Enums<
   PublicEnumNameOrOptions extends
-    | keyof PublicSchema["Enums"]
-    | { schema: keyof Database },
-  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    | keyof PublicSchema['Enums']
+    | {schema: keyof Database},
+  EnumName extends PublicEnumNameOrOptions extends {schema: keyof Database}
+    ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
     : never = never,
-> = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-    : never
+> = PublicEnumNameOrOptions extends {schema: keyof Database}
+  ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
+  ? PublicSchema['Enums'][PublicEnumNameOrOptions]
+  : never

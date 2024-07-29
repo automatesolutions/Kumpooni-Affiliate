@@ -10,11 +10,12 @@ export type OrderStatusTabType =
   | 'awaiting_parts'
   | 'All Orders'
 export type OrderStatusType =
-  | 'In Progress'
-  | 'Scheduled'
-  | 'Canceled'
-  | 'Completed'
-  | 'Awaiting Parts'
+  | 'inprogress'
+  | 'scheduled'
+  | 'new-order'
+  | 'completed'
+  | 'awaiting-parts'
+  | 'canceled'
 
 export const periods: Array<{
   value: PeriodTypes
@@ -146,23 +147,23 @@ export const orderStatus: Array<{
   label: string
 }> = [
   {
-    value: 'Scheduled',
+    value: 'scheduled',
     label: 'Scheduled',
   },
   {
-    value: 'In Progress',
+    value: 'inprogress',
     label: 'In Progress',
   },
   {
-    value: 'Completed',
+    value: 'completed',
     label: 'Completed',
   },
   {
-    value: 'Canceled',
+    value: 'canceled',
     label: 'Canceled',
   },
   {
-    value: 'Awaiting Parts',
+    value: 'awaiting-parts',
     label: 'Awaiting Parts',
   },
 ]
