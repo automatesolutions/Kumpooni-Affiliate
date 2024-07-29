@@ -21,7 +21,7 @@ export function FeedItem({feed}: {feed: FeedNotification}) {
   const timeAgo = useGetTimeAgo()
   const onPress = useCallback(() => {
     if (feed.category.display_name == 'Order') {
-      navigation.navigate('OrderDetails', {id: feed.metadata?.order_id})
+      navigation.navigate('OrderDetails', {id: feed.metadata?.orderId ?? ''})
     }
   }, [navigation, feed])
 

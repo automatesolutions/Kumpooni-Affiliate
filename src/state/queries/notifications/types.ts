@@ -22,8 +22,9 @@ export type FeedNotification = Omit<
   category: Category
   sub_category: Category | null
   metadata: {
-    order_id: string
+    orderId?: string
     applink?: string
+    type?: string
   }
 }
 

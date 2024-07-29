@@ -19,8 +19,6 @@ import {Provider as UnreadNotifsProvider} from 'state/queries/notifications/unre
 import {PaperProvider} from 'react-native-paper'
 import {MenuProvider} from 'react-native-popup-menu'
 import {QueryProvider} from 'lib/react-query'
-import messaging from '@react-native-firebase/messaging'
-import * as notification from 'lib/notifications'
 
 function InnerApp() {
   const theme = useColorModeTheme()
@@ -61,7 +59,6 @@ function App() {
   return (
     <SessionStateProvider>
       <ShellStateProvider>
-        {/* <RealTimeDataProvider> */}
         <ModalStateProvider>
           <DialogStateProvider>
             <PortalProvider>
@@ -69,7 +66,6 @@ function App() {
             </PortalProvider>
           </DialogStateProvider>
         </ModalStateProvider>
-        {/* </RealTimeDataProvider> */}
       </ShellStateProvider>
     </SessionStateProvider>
   )

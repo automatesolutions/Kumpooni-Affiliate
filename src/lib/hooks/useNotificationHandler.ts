@@ -13,6 +13,7 @@ import notifee, {Event as NotifeeEvent, EventType} from '@notifee/react-native'
 import {logger} from '#/logger'
 import {MinimalNotification, NotificationPayload} from '../notifications/types'
 import {resetToTab} from '#/Navigation'
+import {id} from 'date-fns/locale'
 
 type Callback = () => void
 
@@ -78,7 +79,37 @@ export function useNotificationsHandler() {
       case 'canceled-order':
       case 'completed-order':
       case 'inprogress-order':
-        return navigation.navigate('OrderDetails', {id: payload.orderId})
+        // return navigation.navigate('OrderDetails', {id: payload.orderId})
+        return navigation.dispatch(state => {
+          console.log('Navigation Dispatch', state)
+          if (state.routes[0].name === 'Order') {
+            if (state.routes[state.routes.length - 1].name === 'OrderDetails') {
+              console.log('Reset OrderDetails')
+              return CommonActions.reset({
+                ...state,
+                routes: [
+                  ...state.routes.slice(0, state.routes.length - 1),
+                  {
+                    name: 'OrderDetails',
+                    params: {
+                      id: payload.orderId,
+                    },
+                  },
+                ],
+              })
+            } else {
+              console.log('OrderDetails')
+              return CommonActions.navigate('OrderDetails', {
+                id: payload.orderId,
+              })
+            }
+          } else {
+            console.log('OrdersTab')
+            return CommonActions.navigate('OrdersTab', {
+              screen: 'Orders',
+            })
+          }
+        })
       default:
         return CommonActions.navigate('Notifications')
     }

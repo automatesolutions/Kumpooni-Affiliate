@@ -373,4 +373,5 @@ export {
   reset,
   resetToTab,
   handleLink,
+  getCurrentRouteName,
 }
