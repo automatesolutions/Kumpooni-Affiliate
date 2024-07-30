@@ -17,7 +17,7 @@ export interface RepairOrder
   order_line_services: OrderLineService[]
   order_line_parts: OrderLinePart[]
 }
-export type RepairStatus = Enums<'repair_order_status'>
+export type RepairStatus = Enums<'notification_type'>
 
 export type Payment = NonNullable<
   Awaited<ReturnType<typeof getRepairPayments>>['data']

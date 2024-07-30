@@ -191,6 +191,7 @@ export async function updateRepairOrderStatus(
   client: SupabaseClient<Database>,
   {id, status}: {id: string; status: OrderStatusType},
 ) {
+  console.log('status', status)
   return client.from('repair_order').update({status}).eq('id', id)
 }
 

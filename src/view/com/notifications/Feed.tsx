@@ -105,8 +105,8 @@ function EmptyFeed({onRefresh}: {onRefresh: () => void}) {
         a.rounded_sm,
       ]}>
       <View style={[]}>
-        <Text style={[a.text_2xl, a.font_bold]}>No data avaialable</Text>
-        <Button
+        <Text style={[a.text_2xl, a.font_bold]}>No notification found.</Text>
+        {/* <Button
           onPress={onRefresh}
           variant="solid"
           color="primary_blue"
@@ -114,7 +114,7 @@ function EmptyFeed({onRefresh}: {onRefresh: () => void}) {
           size="medium"
           style={[a.rounded_full, a.mt_2xl]}>
           <ButtonText>Try Again</ButtonText>
-        </Button>
+        </Button> */}
       </View>
     </View>
   )
