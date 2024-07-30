@@ -1,16 +1,16 @@
-import { supabase } from '#/lib/supabase'
-import { logger } from '#/logger'
-import { Appointment } from '#/modules/appointment'
-import { useSession } from '#/state/session'
-import { useQueryClient } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import {supabase} from '#/lib/supabase'
+import {logger} from '#/logger'
+import {Appointment} from '#/modules/appointment'
+import {useSession} from '#/state/session'
+import {useQueryClient} from '@tanstack/react-query'
+import {useEffect} from 'react'
 
 export function useRealtimeAppointment() {
-  const { session } = useSession()
+  const {session} = useSession()
   const qc = useQueryClient()
   const table = 'repair_order'
   const filter = `store_id=eq.${session?.store_id}`
-  console.log('filter', filter)
+
   useEffect(() => {
     if (!supabase || !session) return
 
