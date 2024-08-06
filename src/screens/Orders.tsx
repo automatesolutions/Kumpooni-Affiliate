@@ -67,43 +67,21 @@ export function OrdersScreen(props: Props) {
         }
       })
     },
+
     [setArgs],
   )
 
   React.useEffect(() => {
     setPage(0)
-  }, [itemsPerPage])
+    onItemsPerPageChange(numberOfItemsPerPageList[0])
+  }, [args])
   return (
     <View style={[a.flex_1, a.p_lg]}>
       <View style={[a.mt_xs]}>
         <Text style={[a.text_xl, a.font_bold]}>Manage Orders</Text>
       </View>
       <StatusFilterTab onSelect={onSelect} args={args} />
-      {/* <View
-        style={[
-          a.flex_row,
-          a.gap_2xs,
-          a.mb_sm,
-          a.border_b,
-          {borderColor: color.gray_300},
-        ]}>
-        {orderStatusTabs.map(tab => {
-          const isActive = tab.label === args.status
 
-          return (
-            <TouchableOpacity
-              onPress={() => setArgs(prev => ({...prev, status: tab.key}))}
-              key={tab.key}
-              style={[a.px_2xs, a.py_2xs, isActive && styles.activeTab]}>
-              <Text style={{color: isActive ? '#000' : color.gray_600}}>
-                {tab.label}
-              </Text>
-            </TouchableOpacity>
-          )
-        })}
-      </View> */}
-
-      {/* <View style={[a.mx_sm, t.atoms.bg, a.rounded_sm]}> */}
       <DataTable
         style={[
           {
@@ -143,7 +121,7 @@ export function OrdersScreen(props: Props) {
         )}
         {sortedItems.slice(from, to).map(item => {
           const statusColor = getStatusColor(item.status)
-          // const itemName = (item.service?.length ?? 0) > 1 ? 'items' : 'item'
+
           return (
             <DataTable.Row key={item.id}>
               <DataTable.Cell style={{}}>
