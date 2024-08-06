@@ -1,5 +1,5 @@
-import { RepairStatus } from '#/modules/repairs'
-import { light, lightPalette } from '#/theme/themes'
+import {RepairStatus} from '#/modules/repairs'
+import {light, lightPalette} from '#/theme/themes'
 import dayjs from 'dayjs'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 
@@ -84,15 +84,15 @@ export function getRoundedKm(distance: number | null) {
 
 export function getStatusColor(status: RepairStatus | null) {
   switch (status) {
-    case 'Scheduled':
+    case 'scheduled':
       return lightPalette.black
-    case 'Awaiting Parts':
+    case 'awaiting-parts':
       return '#facc15'
-    case 'Completed':
+    case 'completed':
       return lightPalette.positive_600
-    case 'Canceled':
+    case 'canceled':
       return lightPalette.negative_500
-    case 'In Progress':
+    case 'inprogress':
       return lightPalette.blue_600
     default:
       return lightPalette.black
@@ -101,15 +101,15 @@ export function getStatusColor(status: RepairStatus | null) {
 
 export function getInvoceStatusColor(status: RepairStatus | null) {
   switch (status) {
-    case 'Scheduled':
+    case 'scheduled':
       return lightPalette.black
-    case 'Awaiting Parts':
+    case 'awaiting-parts':
       return '#facc15'
-    case 'Completed':
+    case 'completed':
       return lightPalette.positive_600
-    case 'Canceled':
+    case 'canceled':
       return lightPalette.negative_500
-    case 'In Progress':
+    case 'inprogress':
       return lightPalette.primary_600
     default:
       return lightPalette.black

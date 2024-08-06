@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -6,27 +6,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome'
+import {logger} from '#/logger'
+import {useModalControls} from '#/state/modals'
+import {useSession} from '#/state/session'
+import {useWebMediaQueries} from '#/lib/hooks/useWebMediaQueries'
+import {cleanError, isNetworkError} from '#/lib/strings/errors'
+import {colors, s} from '#/lib/styles'
+import {isAndroid, isWeb} from '#/platform/detection'
+import {ScrollView, TextInput} from './util'
+import {Button, ButtonText} from '#/components/Button'
+import {ErrorMessage} from '../error/ErrorMessage'
+import {Text} from '#/components/Typography'
+import {atoms as a, useTheme} from '#/theme'
+import {color} from '#/theme/tokens'
+import {supabase} from 'lib/supabase'
 import * as EmailValidator from 'email-validator'
-
-import { logger } from '#/logger'
-import { useModalControls } from '#/state/modals'
-import { useSession } from '#/state/session'
-
-import { useWebMediaQueries } from '#/lib/hooks/useWebMediaQueries'
-import { cleanError, isNetworkError } from '#/lib/strings/errors'
-import { checkAndFormatResetCode } from '#/lib/strings/password'
-import { colors, s } from '#/lib/styles'
-import { isAndroid, isWeb } from '#/platform/detection'
-
-import { ScrollView, TextInput } from './util'
-import { Button, ButtonText } from '#/components/Button'
-import { ErrorMessage } from '../error/ErrorMessage'
-import { Text } from '#/components/Typography'
-import { atoms as a, useTheme } from '#/theme'
-import { color } from '#/theme/tokens'
-import { supabase } from '#/lib/supabase'
 
 enum Stages {
   RequestCode,
@@ -37,15 +32,15 @@ enum Stages {
 export const snapPoints = isAndroid ? ['90%'] : ['45%']
 
 export function Component({}: {}) {
-  const { session } = useSession()
+  const {session} = useSession()
 
   const [stage, setStage] = useState<Stages>(Stages.RequestCode)
   const [isProcessing, setIsProcessing] = useState<boolean>(false)
   const [resetCode, setResetCode] = useState<string>('')
   const [newPassword, setNewPassword] = useState<string>('')
   const [error, setError] = useState<string>('')
-  const { isMobile } = useWebMediaQueries()
-  const { closeModal } = useModalControls()
+  const {isMobile} = useWebMediaQueries()
+  const {closeModal} = useModalControls()
 
   const onRequestCode = async () => {
     if (
@@ -58,12 +53,12 @@ export function Component({}: {}) {
     setError('')
     setIsProcessing(true)
     try {
-      const { error } = await supabase.auth.reauthenticate()
+      const {error} = await supabase.auth.reauthenticate()
       console.log('Error onRequestCode', error)
       setStage(Stages.ChangePassword)
     } catch (e: any) {
       const errMsg = e.toString()
-      logger.warn('Failed to request password reset', { error: e })
+      logger.warn('Failed to request password reset', {error: e})
       if (isNetworkError(e)) {
         setError(
           `Unable to contact your service. Please check your Internet connection.`,
@@ -88,7 +83,7 @@ export function Component({}: {}) {
     setError('')
     setIsProcessing(true)
     try {
-      const { data, error } = await supabase.auth.updateUser({
+      const {data, error} = await supabase.auth.updateUser({
         password: newPassword,
         nonce: formattedCode,
       })
@@ -102,7 +97,7 @@ export function Component({}: {}) {
       setStage(Stages.Done)
     } catch (e: any) {
       const errMsg = e.toString()
-      logger.warn('Failed to set new password', { error: e })
+      logger.warn('Failed to set new password', {error: e})
       if (isNetworkError(e)) {
         setError(
           'Unable to contact your service. Please check your Internet connection.',
@@ -143,7 +138,7 @@ export function Component({}: {}) {
             style={[
               a.text_lg,
               t.atoms.text_contrast_medium,
-              { marginVertical: 12 },
+              {marginVertical: 12},
             ]}>
             {stage === Stages.RequestCode ? (
               <Text style={[a.text_lg]}>
@@ -169,7 +164,7 @@ export function Component({}: {}) {
                 accessibilityRole="button"
                 accessibilityLabel={`Go to next`}
                 accessibilityHint={`Navigates to the next screen`}>
-                <Text style={[{ color: color.blue_600 }, a.text_xl, s.pr5]}>
+                <Text style={[{color: color.blue_600}, a.text_xl, s.pr5]}>
                   Already have a code?
                 </Text>
               </TouchableOpacity>
@@ -239,7 +234,7 @@ export function Component({}: {}) {
               <ActivityIndicator color="#fff" />
             </View>
           ) : (
-            <View style={{ gap: 10 }}>
+            <View style={{gap: 10}}>
               {stage === Stages.RequestCode && (
                 <Button
                   testID="requestChangeBtn"

@@ -1,19 +1,20 @@
-import React, { useCallback } from 'react'
-import { RootNavigator, RoutesContainer } from '#/Navigation'
-import { BackHandler, View } from 'react-native'
-import { Outlet as PortalOutlet } from '#/components/Portal'
-import { ModalsContainer } from '../com/util/modals/Modal'
-import { isAndroid } from '#/platform/detection'
-import { useCloseAnyActiveElement } from '#/state/utils'
-import { useNotificationRegistration } from '#/lib/notification/useNotificationRegistration'
+import React, {useCallback} from 'react'
+import {BackHandler, View} from 'react-native'
+import {Outlet as PortalOutlet} from '#/components/Portal'
+import {ModalsContainer} from '../com/util/modals/Modal'
+import {isAndroid} from 'platform/detection'
+import {useCloseAnyActiveElement} from 'state/utils'
+import {useNotificationRegistration} from 'lib/notifications/useNotificationRegistration'
+import {useNotificationsHandler} from 'lib/hooks/useNotificationHandler'
+import {RootNavigator, RoutesContainer} from '#/Navigation'
 
 function ShellInner() {
   const closeAnyActiveElement = useCloseAnyActiveElement()
 
   useNotificationRegistration()
-  // useNotificationHandler()
+  useNotificationsHandler()
   React.useEffect(() => {
-    let listener = { remove() {} }
+    let listener = {remove() {}}
     if (isAndroid) {
       console.log('backPress')
       listener = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -26,7 +27,7 @@ function ShellInner() {
   }, [closeAnyActiveElement])
   return (
     <>
-      <View style={{ height: '100%' }}>
+      <View style={{height: '100%'}}>
         <RootNavigator />
       </View>
       <ModalsContainer />
@@ -36,7 +37,7 @@ function ShellInner() {
 }
 export function Shell() {
   return (
-    <View style={{ height: '100%' }}>
+    <View style={{height: '100%'}}>
       <RoutesContainer>
         <ShellInner />
       </RoutesContainer>

@@ -1,24 +1,23 @@
-import { Database } from '#/database'
-import { supabase } from '#/lib/supabase'
-import { SupabaseClient } from '@supabase/supabase-js'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { decode } from 'base64-arraybuffer'
-import { Image as RNImage } from 'react-native-image-crop-picker'
-import { logger } from '#/logger'
-import { sanitize } from '#/utils/supabase'
-import { STALE } from '#/utils/query'
-
+import {supabase} from '#/lib/supabase'
+import {SupabaseClient} from '@supabase/supabase-js'
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
+import {decode} from 'base64-arraybuffer'
+import {Image as RNImage} from 'react-native-image-crop-picker'
+import {logger} from '#/logger'
+import {sanitize} from '#/utils/supabase'
+import {STALE} from '#/utils/query'
+import {Database} from '#/types/supabase'
+import {SUPABASE_PROJECT} from 'react-native-dotenv'
 type StoreImageUpdateParams = {
   newImage: RNImage
   storeId: string
 }
-const defaultPath =
-  'https://absfenzewxaailbouqts.supabase.co/storage/v1/object/public/'
+const defaultPath = `https://${SUPABASE_PROJECT}.supabase.co/storage/v1/object/public/`
 
 export function useStoreFrontUpdateMutation() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: async ({ storeId, newImage }: StoreImageUpdateParams) => {
+    mutationFn: async ({storeId, newImage}: StoreImageUpdateParams) => {
       const base64Str = newImage.data ?? ''
       const imageExtension = newImage.path.slice(-3)
       console.log('imageExtension', imageExtension)
@@ -36,11 +35,11 @@ export function useStoreFrontUpdateMutation() {
           upsert: true,
         })
       if (imageUpload.error) {
-        logger.error('useProfileMutation', { error: imageUpload.error })
+        logger.error('useProfileMutation', {error: imageUpload.error})
         throw imageUpload.error
       }
       if (imageUpload.data?.path) {
-        const { data, error } = await supabase
+        const {data, error} = await supabase
           .from('store')
           .update(
             sanitize({
@@ -55,7 +54,7 @@ export function useStoreFrontUpdateMutation() {
       }
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['store-profile'] })
+      await queryClient.invalidateQueries({queryKey: ['store-profile']})
     },
   })
 }
@@ -63,7 +62,7 @@ export function useStoreFrontUpdateMutation() {
 export function useStoreBannerUpdateMutation() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: async ({ storeId, newImage }: StoreImageUpdateParams) => {
+    mutationFn: async ({storeId, newImage}: StoreImageUpdateParams) => {
       const base64Str = newImage.data ?? ''
       const imageExtension = newImage.path.slice(-3)
 
@@ -80,6 +79,7 @@ export function useStoreBannerUpdateMutation() {
           contentType: newImage.mime,
           upsert: true,
         })
+
       if (imageUpload.error) {
         logger.error('useStoreBannerUpdateMutation', {
           error: imageUpload.error,
@@ -87,7 +87,7 @@ export function useStoreBannerUpdateMutation() {
         throw imageUpload.error
       }
       if (imageUpload.data?.path) {
-        const { error } = await supabase
+        const {error} = await supabase
           .from('store')
           .update(
             sanitize({
@@ -97,12 +97,15 @@ export function useStoreBannerUpdateMutation() {
           .eq('id', storeId)
 
         if (error) {
+          logger.error('update store banner_img', {
+            error: error,
+          })
           throw new Error('Failed to upload image')
         }
       }
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['store-profile'] })
+      await queryClient.invalidateQueries({queryKey: ['store-profile']})
     },
   })
 }
@@ -112,7 +115,7 @@ export function useStoreProfileQuery(storeId: string) {
     staleTime: STALE.SECONDS.FIFTEEN,
     queryKey: ['store-profile'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const {data, error} = await supabase
         .from('store')
         .select('id, name, store_img, banner_img, business_hours, address')
         .eq('id', storeId)

@@ -24,7 +24,7 @@ export const StoreAppointments = memo(function StoreAppointments({
       <Text style={[a.font_bold, a.text_xl, a.mb_2xs]}>Appointments</Text>
       {isRefetching || isLoading ? (
         <View>
-          <ActivityIndicator />
+          <ActivityIndicator size={'large'} color={'red'} />
         </View>
       ) : (
         <AppointmentsTable appointments={appointments} />

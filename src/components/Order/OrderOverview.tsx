@@ -1,37 +1,37 @@
-import React, { useCallback, useMemo, useState } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Text } from '#/components/Typography'
-import { useTheme, atoms as a } from '#/theme'
+import React, {useCallback, useMemo, useState} from 'react'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import {Text} from '#/components/Typography'
+import {useTheme, atoms as a} from '#/theme'
 import DropDownPicker from 'react-native-dropdown-picker'
-import { HStack } from '../HStack'
-import { color } from '#/theme/tokens'
-import { OrderStatusType, orderStatus } from '#/lib/constants'
+import {HStack} from '../HStack'
+import {color} from '#/theme/tokens'
+import {OrderStatusType, orderStatus} from '#/lib/constants'
 import {
   Payment,
   RepairOrder,
   useAppointmentMutation,
   useUpdateOrderStatus,
 } from '#/modules/repairs'
-import { currency } from '#/lib/currency'
-import { Separator } from '#/view/com/util/Views'
+import {currency} from '#/lib/currency'
+import {Separator} from '#/view/com/util/Views'
 import dayjs from 'dayjs'
-import { Plus } from 'lucide-react-native'
+import {Plus} from 'lucide-react-native'
 import DatePicker from 'react-native-date-picker'
-import { useGlobalLoadingControls } from '#/state/shell/global-loading'
+import {useGlobalLoadingControls} from '#/state/shell/global-loading'
 
-import { RecordPaymentModal } from '../modals/RecordPayment'
+import {RecordPaymentModal} from '../modals/RecordPayment'
 type OrderOverviewProps = {
   repair: RepairOrder
   payments: Payment[] | undefined
 }
-export function OrderOverview({ repair, payments }: OrderOverviewProps) {
+export function OrderOverview({repair, payments}: OrderOverviewProps) {
   const t = useTheme()
 
   const [open, setOpen] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [dateOpen, setDateOpen] = useState(false)
   const [status, setStatus] = useState<OrderStatusType>(
-    repair.status ? repair.status : 'Scheduled',
+    repair.status ? repair.status : 'scheduled',
   )
   const totalPaid = useMemo(() => {
     return (payments ?? []).reduce((acc, payment) => {
@@ -49,8 +49,8 @@ export function OrderOverview({ repair, payments }: OrderOverviewProps) {
     }
   }, [repair])
   const globalLoading = useGlobalLoadingControls()
-  const { mutate: updateDateTime } = useAppointmentMutation()
-  const { mutateAsync: updateStatusOrder } = useUpdateOrderStatus()
+  const {mutate: updateDateTime} = useAppointmentMutation()
+  const {mutateAsync: updateStatusOrder} = useUpdateOrderStatus()
   const [date, setDate] = useState<Date>(
     dayjs(repair.appointment_date_str).toDate() ?? new Date(),
   )
@@ -79,7 +79,8 @@ export function OrderOverview({ repair, payments }: OrderOverviewProps) {
     [repair.id, setDate, setDateOpen, updateDateTime],
   )
   const onSelectItem = useCallback(
-    async (data: { value: OrderStatusType; label: string }) => {
+    async (data: {value: OrderStatusType; label: string}) => {
+      if (status === data.value) return
       globalLoading.show()
       try {
         await updateStatusOrder({
@@ -152,13 +153,13 @@ export function OrderOverview({ repair, payments }: OrderOverviewProps) {
             <Text style={[a.text_sm]}>Appointment</Text>
 
             <TouchableOpacity style={[]} onPress={openDatePicker}>
-              <Text style={[{ color: color.blue_700 }, a.text_sm]}>{`${dayjs(
+              <Text style={[{color: color.blue_700}, a.text_sm]}>{`${dayjs(
                 date,
               ).format('MM/DD/YYYY')} at ${dayjs(date).format(
                 'h:mm A',
               )}`}</Text>
 
-              <Text style={[{ color: color.blue_700 }, a.self_end, a.text_sm]}>
+              <Text style={[{color: color.blue_700}, a.self_end, a.text_sm]}>
                 Schedule
               </Text>
             </TouchableOpacity>
@@ -170,7 +171,7 @@ export function OrderOverview({ repair, payments }: OrderOverviewProps) {
               a.justify_center,
               a.align_center,
               a.gap_2xs,
-              { backgroundColor: '#000', height: 40 },
+              {backgroundColor: '#000', height: 40},
             ]}>
             <Plus size={18} color={'#fff'} />
             <Text style={[t.atoms.text_inverted]}>Payment</Text>
@@ -188,7 +189,7 @@ export function OrderOverview({ repair, payments }: OrderOverviewProps) {
             <Text
               style={[
                 a.border_b,
-                { paddingBottom: 3, borderColor: color.trueBlack },
+                {paddingBottom: 3, borderColor: color.trueBlack},
               ]}>
               {currency.format(repair.total_cost ?? 0)}
             </Text>
@@ -217,14 +218,14 @@ export function OrderOverview({ repair, payments }: OrderOverviewProps) {
           <Separator />
 
           <HStack style={[a.justify_between]}>
-            <Text style={[{ color: color.gray_700 }, a.font_bold]}>
+            <Text style={[{color: color.gray_700}, a.font_bold]}>
               Order no.
             </Text>
             <Text style={[a.font_bold]}>{`#${repair.reference_no}`}</Text>
           </HStack>
 
           <HStack style={[a.justify_between]}>
-            <Text style={[{ color: color.gray_700 }, a.font_bold]}>
+            <Text style={[{color: color.gray_700}, a.font_bold]}>
               Payment Status
             </Text>
             <Text style={[a.font_bold]}>{`${repair.invoice_status}`}</Text>
@@ -260,7 +261,7 @@ export function OrderOverview({ repair, payments }: OrderOverviewProps) {
   )
 }
 
-function PaymentHistory({ payments }: { payments: Payment[] | undefined }) {
+function PaymentHistory({payments}: {payments: Payment[] | undefined}) {
   if (!payments || payments.length < 0) {
     return null
   }

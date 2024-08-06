@@ -27,8 +27,9 @@ export function AppointmentsTable({
   }
   if (!appointments)
     return (
-      <View style={[t.atoms.bg]}>
-        <Text>Failed to fetch data.</Text>
+      <View
+        style={[t.atoms.bg, a.flex_1, a.p_5xl, a.align_center, a.rounded_sm]}>
+        <Text style={[a.text_lg, a.font_bold]}>Failed to fetch data.</Text>
       </View>
     )
   return (

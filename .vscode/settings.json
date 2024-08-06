@@ -9,6 +9,7 @@
     "**/tmp": true,
     "**/android": true
   },
+  "workbench.sideBar.location": "right",
   "editor.inlineSuggest.enabled": true,
   "emmet.excludeLanguages": [
     "javascriptreact",

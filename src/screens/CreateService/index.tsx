@@ -1,40 +1,40 @@
-import React, { useEffect } from 'react'
-import { View, StyleSheet, ActivityIndicator } from 'react-native'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import React, {useEffect} from 'react'
+import {View, StyleSheet, ActivityIndicator} from 'react-native'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
-import { Text } from '#/components/Typography'
+import {Text} from '#/components/Typography'
 import * as TextField from '#/components/forms/TextField'
-import { useTheme, atoms as a } from '#/theme'
-import { CommonNavigatorParams, NavigationProp } from '#/lib/routes/types'
-import { SelectServiceBtn } from '#/components/Services/SelectServiceBtn'
-import { Controller, useForm } from 'react-hook-form'
+import {useTheme, atoms as a} from '#/theme'
+import {CommonNavigatorParams, NavigationProp} from '#/lib/routes/types'
+import {SelectServiceBtn} from '#/components/Services/SelectServiceBtn'
+import {Controller, useForm} from 'react-hook-form'
 import {
   AddServiceSchema,
   addServiceValidator,
 } from '#/modules/services/services.model'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { ServiceLineParts } from './ServiceLineParts'
-import { ServiceSidebar } from './Sidebar'
-import { useSession } from '#/state/session'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import { useServiceParts } from '#/state/store/service-parts'
-import { HStack } from '#/components/HStack'
-import { Button } from '#/components/Button'
+import {zodResolver} from '@hookform/resolvers/zod'
+import {ServiceLineParts} from './ServiceLineParts'
+import {ServiceSidebar} from './Sidebar'
+import {useSession} from '#/state/session'
+import {useFocusEffect, useNavigation} from '@react-navigation/native'
+import {useServiceParts} from '#/state/store/service-parts'
+import {HStack} from '#/components/HStack'
+import {Button} from '#/components/Button'
 
-import { useInsertServiceMutation, useServiceQuery } from '#/modules/services'
+import {useInsertServiceMutation, useServiceQuery} from '#/modules/services'
 
 type Props = NativeStackScreenProps<
   CommonNavigatorParams,
   'CreateOrEditService'
 >
 
-export function CreateServiceScreen({ route }: Props) {
+export function CreateServiceScreen({route}: Props) {
   const serviceId = route.params?.id
-  const { clearParts } = useServiceParts(state => ({
+  const {clearParts} = useServiceParts(state => ({
     clearParts: state.clearParts,
     setParts: state.setParts,
   }))
-  const { data, isLoading } = useServiceQuery(serviceId)
+  const {data, isLoading} = useServiceQuery(serviceId)
 
   useFocusEffect(
     React.useCallback(() => {
@@ -68,22 +68,22 @@ function CreateServiceInner({
   serviceId: number | undefined
 }) {
   const t = useTheme()
-  const { control, setValue, handleSubmit, watch } = useForm<AddServiceSchema>({
+  const {control, setValue, handleSubmit, watch} = useForm<AddServiceSchema>({
     resolver: zodResolver(addServiceValidator),
     defaultValues: initialValues,
   })
   const isDisabled = serviceId ? true : false
   const navigation = useNavigation<NavigationProp>()
-  const { session } = useSession()
+  const {session} = useSession()
 
-  const { parts, setParts } = useServiceParts(state => ({
+  const {parts, setParts} = useServiceParts(state => ({
     setParts: state.setParts,
     parts: state.parts,
   }))
 
   const insertService = useInsertServiceMutation()
   const onSubmit = (rawInput: AddServiceSchema) => {
-    const { categories, category_id, description, price, service } = rawInput
+    const {categories, category_id, description, price, service} = rawInput
 
     const total = parts.reduce(
       (accumulator, part) => accumulator + part.price * part.quantity,
@@ -104,7 +104,7 @@ function CreateServiceInner({
         },
         {
           onSettled: () => {
-            navigation.navigate('Services')
+            navigation.navigate('Service')
           },
         },
       )
@@ -112,7 +112,7 @@ function CreateServiceInner({
   }
 
   const onSaveDraft = async (rawInput: AddServiceSchema) => {
-    const { categories, category_id, description, price, service } = rawInput
+    const {categories, category_id, description, price, service} = rawInput
     try {
       const total = parts.reduce(
         (accumulator, part) => accumulator + part.price * part.quantity,
@@ -130,7 +130,7 @@ function CreateServiceInner({
         {
           onSuccess: () => {},
           onSettled: () => {
-            navigation.navigate('Services')
+            navigation.navigate('Service')
           },
         },
       )
@@ -165,10 +165,7 @@ function CreateServiceInner({
             <Controller
               control={control}
               name="service"
-              render={({
-                field: { value, onChange },
-                fieldState: { invalid },
-              }) => (
+              render={({field: {value, onChange}, fieldState: {invalid}}) => (
                 <View style={[a.flex_1]}>
                   <TextField.LabelText style={[a.text_lg]}>
                     Service name
@@ -206,10 +203,7 @@ function CreateServiceInner({
             <Controller
               control={control}
               name="category_name"
-              render={({
-                field: { value, onChange },
-                fieldState: { invalid },
-              }) => (
+              render={({field: {value, onChange}, fieldState: {invalid}}) => (
                 <View style={[a.flex_1]}>
                   <TextField.LabelText style={[a.text_lg]}>
                     Service Category
@@ -231,10 +225,7 @@ function CreateServiceInner({
             <Controller
               control={control}
               name="price"
-              render={({
-                field: { value, onChange },
-                fieldState: { invalid },
-              }) => (
+              render={({field: {value, onChange}, fieldState: {invalid}}) => (
                 <View style={[a.flex_1]}>
                   <TextField.LabelText style={[a.text_lg]}>
                     Price
@@ -259,11 +250,8 @@ function CreateServiceInner({
             <Controller
               control={control}
               name="description"
-              render={({
-                field: { onChange, value },
-                fieldState: { invalid },
-              }) => (
-                <View style={[{ flex: 0.5 }]}>
+              render={({field: {onChange, value}, fieldState: {invalid}}) => (
+                <View style={[{flex: 0.5}]}>
                   <TextField.LabelText style={[a.text_lg]}>
                     Description
                   </TextField.LabelText>
@@ -292,11 +280,12 @@ function CreateServiceInner({
           ]}>
           <Button
             onPress={handleSubmit(onSaveDraft)}
-            style={[a.py_2xs, a.rounded_xs, { width: 150 }]}
+            style={[a.py_2xs, a.rounded_xs, {width: 150}]}
             variant="solid"
             label="Cancel"
             color="secondary">
-            {insertService.isPending ? (
+            {insertService.isPending &&
+            insertService.variables.status === 'Draft' ? (
               <View>
                 <ActivityIndicator size={'small'} color={'#000'} />
               </View>
@@ -306,12 +295,13 @@ function CreateServiceInner({
           </Button>
 
           <Button
-            style={[a.py_2xs, a.rounded_xs, a.flex_row, { width: 170 }]}
+            style={[a.py_2xs, a.rounded_xs, a.flex_row, {width: 170}]}
             variant="solid"
             label="Submit"
             color="primary"
             onPress={handleSubmit(onSubmit)}>
-            {insertService.isPending ? (
+            {insertService.isPending &&
+            insertService.variables.status !== 'Draft' ? (
               <View>
                 <ActivityIndicator size={'small'} color={'#fff'} />
               </View>

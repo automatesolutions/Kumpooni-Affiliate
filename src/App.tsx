@@ -19,19 +19,11 @@ import {Provider as UnreadNotifsProvider} from 'state/queries/notifications/unre
 import {PaperProvider} from 'react-native-paper'
 import {MenuProvider} from 'react-native-popup-menu'
 import {QueryProvider} from 'lib/react-query'
-import messaging from '@react-native-firebase/messaging'
-import * as notification from '#/lib/notification'
 
 function InnerApp() {
   const theme = useColorModeTheme()
   const {session} = useSession()
 
-  React.useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      await notification.onDisplayNotification(remoteMessage)
-    })
-    return unsubscribe
-  }, [])
   return (
     <SafeAreaProvider>
       <LoggedOutViewProvider>
@@ -67,7 +59,6 @@ function App() {
   return (
     <SessionStateProvider>
       <ShellStateProvider>
-        {/* <RealTimeDataProvider> */}
         <ModalStateProvider>
           <DialogStateProvider>
             <PortalProvider>
@@ -75,7 +66,6 @@ function App() {
             </PortalProvider>
           </DialogStateProvider>
         </ModalStateProvider>
-        {/* </RealTimeDataProvider> */}
       </ShellStateProvider>
     </SessionStateProvider>
   )

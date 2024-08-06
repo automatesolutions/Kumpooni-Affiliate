@@ -1,18 +1,18 @@
-import { Database } from '#/database'
-import { supabase } from '#/lib/supabase'
-import { logger } from '#/logger'
-import { useSession } from '#/state/session'
-import { SupabaseClient } from '@supabase/supabase-js'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import {supabase} from '#/lib/supabase'
+import {logger} from '#/logger'
+import {useSession} from '#/state/session'
+import {Database} from '#/types/supabase'
+import {SupabaseClient} from '@supabase/supabase-js'
+import {useQuery, useQueryClient} from '@tanstack/react-query'
 
 export const prefetchServicesAndParts = async () => {
-  const { session } = useSession()
+  const {session} = useSession()
   const queryClient = useQueryClient()
   if (!session?.store_id) return
   await queryClient.prefetchQuery({
     queryKey: ['services'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const {data, error} = await supabase
         .from('service')
         .select('*')
         .eq('store_id', session.store_id!)
@@ -44,7 +44,7 @@ export function useServicesQuery(storeId: string | undefined | null) {
     queryKey: ['services'],
     queryFn: async () => {
       if (!storeId) throw new Error('Failed to fetch data')
-      const { data, error } = await getServices(supabase, storeId)
+      const {data, error} = await getServices(supabase, storeId)
       if (error) throw error
       return data
     },
@@ -71,7 +71,7 @@ export function usePartsQuery(storeId: string | undefined | null) {
     queryKey: ['parts'],
     queryFn: async () => {
       if (!storeId) throw new Error('Failed to fetch data')
-      const { data, error } = await getParts(supabase, storeId)
+      const {data, error} = await getParts(supabase, storeId)
       if (error) throw error
       return data
     },
@@ -80,7 +80,7 @@ export function usePartsQuery(storeId: string | undefined | null) {
 }
 export async function getCategories(
   client: SupabaseClient<Database>,
-  args: { search: string },
+  args: {search: string},
 ) {
   let query = client
     .from('categories')
@@ -96,11 +96,11 @@ export async function getCategories(
   return query
 }
 
-export function useCategoriesQuery(args: { search: string }) {
+export function useCategoriesQuery(args: {search: string}) {
   return useQuery({
-    queryKey: ['categories', { ...args }],
+    queryKey: ['categories', {...args}],
     queryFn: async () => {
-      const { data, error } = await getCategories(supabase, args)
+      const {data, error} = await getCategories(supabase, args)
       if (error) {
         throw error
       }

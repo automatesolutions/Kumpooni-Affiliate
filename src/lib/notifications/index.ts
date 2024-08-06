@@ -6,15 +6,15 @@ import notifee, {
   EventType,
   Notification,
 } from '@notifee/react-native'
-import { PermissionsAndroid, Platform } from 'react-native'
-import { PERMISSIONS, request } from 'react-native-permissions'
+import {PermissionsAndroid, Platform} from 'react-native'
+import {PERMISSIONS, request} from 'react-native-permissions'
 
-import { Session } from '@supabase/supabase-js'
+import {Session} from '@supabase/supabase-js'
 
-import { supabase } from '../supabase'
-import { devicePlatform, isAndroid, isIOS } from '#/platform/detection'
-import { ANDROID_DEFAULT_CHANNEL_ID } from '#/lib/notification/constants'
-import { AutomateError, logger } from '#/logger'
+import {supabase} from '../supabase'
+import {devicePlatform, isAndroid, isIOS} from '#/platform/detection'
+import {ANDROID_DEFAULT_CHANNEL_ID} from 'lib/notifications/constants'
+import {AutomateError, logger} from '#/logger'
 
 export * from './permisions'
 
@@ -36,7 +36,7 @@ export async function getFCMToken(userId: string) {
         platform: devicePlatform,
         app_id: 'www.automate.com',
       },
-      { ignoreDuplicates: true },
+      {ignoreDuplicates: true},
     )
   } catch (error) {
     console.error('Failed to saved fcm token')
@@ -84,10 +84,10 @@ export function registerTokenChangeHandler(session: Session) {
           platform: devicePlatform,
           app_id: 'www.automate.com',
         },
-        { ignoreDuplicates: true },
+        {ignoreDuplicates: true},
       )
     } catch (error) {
-      console.error('Notifications: Failed to set push token', { error })
+      console.error('Notifications: Failed to set push token', {error})
     }
   })
 
@@ -99,6 +99,7 @@ export function registerTokenChangeHandler(session: Session) {
 export async function onDisplayNotification(
   remoteMessage: FirebaseMessagingTypes.RemoteMessage,
 ) {
+  logger.debug('onDisplayNotification', {message: remoteMessage})
   const image = isIOS
     ? (remoteMessage.data?.picture as string)
     : remoteMessage.notification?.android?.imageUrl
@@ -118,7 +119,7 @@ export async function onDisplayNotification(
     ios: {},
   }
   if (image) {
-    notification.ios!.attachments = [{ url: image }]
+    notification.ios!.attachments = [{url: image}]
     notification.android!.largeIcon = image
     notification.android!.style = {
       picture: image,
@@ -133,7 +134,7 @@ export async function onDisplayNotification(
       new AutomateError(
         'Error while displaying notification with notifee library',
       ),
-      { error },
+      {error},
     )
   })
 }

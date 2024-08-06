@@ -1,10 +1,9 @@
-import { useSession } from '#/state/session'
-import * as notifications from '#/lib/notification'
-import React, { useCallback } from 'react'
-import { isAndroid } from '#/platform/detection'
+import React from 'react'
+import {useSession} from 'state/session'
+import * as notifications from 'lib/notifications'
 
 export function useNotificationRegistration() {
-  const { session } = useSession()
+  const {session} = useSession()
   // start undefined
   const currentAccount = React.useRef<string | undefined>(undefined)
 

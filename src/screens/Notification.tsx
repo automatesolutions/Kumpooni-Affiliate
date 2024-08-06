@@ -1,27 +1,27 @@
-import React, { useCallback, useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Check } from 'lucide-react-native'
-import { Text } from '#/components/Typography'
-import { useTheme, atoms as a } from '#/theme'
-import { CommonNavigatorParams } from '#/lib/routes/types'
-import { color } from '#/theme/tokens'
-import { NotifUnreadCount } from '#/state/queries/notifications/types'
-import { useIsFocused } from '@react-navigation/native'
-import { listenSoftReset } from '#/state/events'
+import React, {useCallback, useState} from 'react'
+import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
+import {Check} from 'lucide-react-native'
+import {Text} from '#/components/Typography'
+import {useTheme, atoms as a} from '#/theme'
+import {CommonNavigatorParams} from '#/lib/routes/types'
+import {color} from '#/theme/tokens'
+import {NotifUnreadCount} from '#/state/queries/notifications/types'
+import {useIsFocused} from '@react-navigation/native'
+import {listenSoftReset} from '#/state/events'
 import {
   useUnreadNotifications,
   useUnreadNotificationsApi,
 } from '#/state/queries/notifications/unread'
-import { ActivityIndicator } from 'react-native-paper'
-import { invalidateQuery } from '#/state/queries/util'
-import { useQueryClient } from '@tanstack/react-query'
+import {ActivityIndicator} from 'react-native-paper'
+import {invalidateQuery} from '#/state/queries/util'
+import {useQueryClient} from '@tanstack/react-query'
 import {
   useNotificationCountQuery,
   RQKEY as RQKEY_NOTIFS,
 } from '#/state/queries/notifications/count'
-import { isNative } from '#/platform/detection'
-import { Feed } from '#/view/com/notifications/Feed'
+import {isNative} from '#/platform/detection'
+import {Feed} from '#/view/com/notifications/Feed'
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'Notification'>
 
@@ -31,15 +31,15 @@ export function NotificationScreen(props: Props) {
   const t = useTheme()
   const scrollElRef = React.useRef<FlatList>(null)
 
-  const [category, setCategory] = useState<number>(1)
+  const [category, setCategory] = useState<number>(2)
   const [isLoadingLatest, setIsLoadingLatest] = useState<boolean>(false)
   const queryClient = useQueryClient()
   const unreadNum = useUnreadNotifications()
   const unreadApi = useUnreadNotificationsApi()
-  const { data: dbCategory, error, isLoading } = useNotificationCountQuery()
+  const {data: dbCategory, error, isLoading} = useNotificationCountQuery()
 
   const scrollToTop = React.useCallback(() => {
-    scrollElRef.current?.scrollToOffset({ animated: isNative, offset: 0 })
+    scrollElRef.current?.scrollToOffset({animated: isNative, offset: 0})
   }, [scrollElRef])
 
   const onPressLoadLatest = useCallback(() => {
@@ -52,7 +52,7 @@ export function NotificationScreen(props: Props) {
       // check with the server
       setIsLoadingLatest(true)
       unreadApi
-        .checkUnreadMsgCount({ invalidate: true })
+        .checkUnreadMsgCount({invalidate: true})
         .catch(() => undefined)
         .then(() => setIsLoadingLatest(false))
     }
@@ -80,7 +80,7 @@ export function NotificationScreen(props: Props) {
           disabled={!unreadNum}
           onPress={onMarkAllAsRead}
           style={[
-            { paddingVertical: 4, paddingHorizontal: 8, gap: 4 },
+            {paddingVertical: 4, paddingHorizontal: 8, gap: 4},
             a.flex_row,
             a.align_center,
             a.rounded_sm,
@@ -128,7 +128,7 @@ function CategoryTab({
           a.rounded_md,
           a.gap_xs,
           a.h_full,
-          { width: 270 },
+          {width: 270},
         ]}
       />
     )
@@ -142,7 +142,7 @@ function CategoryTab({
         a.rounded_md,
         a.gap_xs,
         a.h_full,
-        { width: 270 },
+        {width: 270},
       ]}>
       {notifCategory.map(notifCategory => {
         const isActive = category === notifCategory.category_id

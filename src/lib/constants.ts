@@ -1,20 +1,21 @@
-import { ServiceStatusType } from '#/modules/services/types'
-import { Insets } from 'react-native'
+import {ServiceStatusType} from '#/modules/services/types'
+import {Insets} from 'react-native'
 
 export type PeriodTypes = 'today' | 'yesterday' | 'this_week' | 'this_month'
 export type OrderStatusTabType =
-  | 'In Progress'
-  | 'Scheduled'
-  | 'Canceled'
-  | 'Completed'
-  | 'Awaiting Parts'
+  | 'inprogress'
+  | 'scheduled'
+  | 'canceled'
+  | 'completed'
+  | 'awaiting_parts'
   | 'All Orders'
 export type OrderStatusType =
-  | 'In Progress'
-  | 'Scheduled'
-  | 'Canceled'
-  | 'Completed'
-  | 'Awaiting Parts'
+  | 'inprogress'
+  | 'scheduled'
+  | 'new-order'
+  | 'completed'
+  | 'awaiting-parts'
+  | 'canceled'
 
 export const periods: Array<{
   value: PeriodTypes
@@ -47,19 +48,19 @@ export const orderStatusTabs: Array<{
     label: 'All Orders',
   },
   {
-    key: 'Scheduled',
+    key: 'scheduled',
     label: 'Scheduled',
   },
   {
-    key: 'In Progress',
+    key: 'inprogress',
     label: 'In Progress',
   },
   {
-    key: 'Completed',
+    key: 'completed',
     label: 'Completed',
   },
   {
-    key: 'Canceled',
+    key: 'canceled',
     label: 'Canceled',
   },
 ]
@@ -125,20 +126,20 @@ export const services = [
 ]
 
 export const emojisWithIcons = [
-  { title: 'happy', icon: 'emoticon-happy-outline' },
-  { title: 'cool', icon: 'emoticon-cool-outline' },
-  { title: 'lol', icon: 'emoticon-lol-outline' },
-  { title: 'sad', icon: 'emoticon-sad-outline' },
-  { title: 'cry', icon: 'emoticon-cry-outline' },
-  { title: 'angry', icon: 'emoticon-angry-outline' },
-  { title: 'confused', icon: 'emoticon-confused-outline' },
-  { title: 'excited', icon: 'emoticon-excited-outline' },
-  { title: 'kiss', icon: 'emoticon-kiss-outline' },
-  { title: 'devil', icon: 'emoticon-devil-outline' },
-  { title: 'dead', icon: 'emoticon-dead-outline' },
-  { title: 'wink', icon: 'emoticon-wink-outline' },
-  { title: 'sick', icon: 'emoticon-sick-outline' },
-  { title: 'frown', icon: 'emoticon-frown-outline' },
+  {title: 'happy', icon: 'emoticon-happy-outline'},
+  {title: 'cool', icon: 'emoticon-cool-outline'},
+  {title: 'lol', icon: 'emoticon-lol-outline'},
+  {title: 'sad', icon: 'emoticon-sad-outline'},
+  {title: 'cry', icon: 'emoticon-cry-outline'},
+  {title: 'angry', icon: 'emoticon-angry-outline'},
+  {title: 'confused', icon: 'emoticon-confused-outline'},
+  {title: 'excited', icon: 'emoticon-excited-outline'},
+  {title: 'kiss', icon: 'emoticon-kiss-outline'},
+  {title: 'devil', icon: 'emoticon-devil-outline'},
+  {title: 'dead', icon: 'emoticon-dead-outline'},
+  {title: 'wink', icon: 'emoticon-wink-outline'},
+  {title: 'sick', icon: 'emoticon-sick-outline'},
+  {title: 'frown', icon: 'emoticon-frown-outline'},
 ]
 
 export const orderStatus: Array<{
@@ -146,23 +147,23 @@ export const orderStatus: Array<{
   label: string
 }> = [
   {
-    value: 'Scheduled',
+    value: 'scheduled',
     label: 'Scheduled',
   },
   {
-    value: 'In Progress',
+    value: 'inprogress',
     label: 'In Progress',
   },
   {
-    value: 'Completed',
+    value: 'completed',
     label: 'Completed',
   },
   {
-    value: 'Canceled',
+    value: 'canceled',
     label: 'Canceled',
   },
   {
-    value: 'Awaiting Parts',
+    value: 'awaiting-parts',
     label: 'Awaiting Parts',
   },
 ]
@@ -228,7 +229,7 @@ export const settingsTab: Array<{
   value: SettingsTabType
   label: string
 }> = [
-  { value: 'Store Information', label: 'Store Information' },
-  { value: 'Business Information', label: 'Business Information' },
+  {value: 'Store Information', label: 'Store Information'},
+  {value: 'Business Information', label: 'Business Information'},
 ]
 export const serviceStatusType = ['Active', 'Inactive']

@@ -35,6 +35,8 @@ import {ServicesMenu} from '#/view/com/services/ServicesMenu'
 import {logger} from '#/logger'
 import {Button} from '#/components/Button'
 import {ServiceStatus as ServiceStatusBadge} from '#/components/Services/ServicesStatus'
+import {ListEmptyItem} from '#/components/ListEmptyItem'
+import {List} from '#/view/com/util/List'
 
 type Props = NativeStackScreenProps<AllNavigatorParams, 'Service'>
 const ITEM_HEIGHT = 50
@@ -200,7 +202,7 @@ function ServicesTable({storeId}: {storeId: string}) {
           </DataTable.Title>
         </DataTable.Header>
 
-        <FlatList
+        <List
           data={entries}
           initialNumToRender={30}
           renderItem={renderItem}
@@ -208,13 +210,10 @@ function ServicesTable({storeId}: {storeId: string}) {
           ListEmptyComponent={
             isLoading || isRefetching ? (
               <View style={[a.py_2xs]}>
-                <ActivityIndicator size={'large'} />
+                <ActivityIndicator size={'large'} color={'red'} />
               </View>
             ) : (
-              <View
-                style={[a.flex_1, a.justify_center, a.align_center, a.py_2xs]}>
-                <Text>The list is empty</Text>
-              </View>
+              <ListEmptyItem style={{paddingTop: 100}} />
             )
           }
           ItemSeparatorComponent={() => <TableSeparator />}
@@ -251,8 +250,9 @@ function DataTableRow({
   onPressDelete: (id: number) => void
   onToggleActiveInactive: (id: number, status: ServiceStatus) => void
 }) {
+  const t = useTheme()
   return (
-    <DataTable.Row key={service.id}>
+    <DataTable.Row style={[t.atoms.bg]}>
       <DataTable.Cell>
         <Text>{service.name}</Text>
       </DataTable.Cell>
@@ -338,9 +338,7 @@ const styles = StyleSheet.create({
   },
   tableInner: {
     marginBottom: 100,
-    backgroundColor: '#fff',
     borderRadius: 10,
     borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
   },
 })

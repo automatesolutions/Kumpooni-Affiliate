@@ -4,6 +4,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  FlatList,
+  ListRenderItemInfo,
 } from 'react-native'
 import {Text} from '#/components/Typography'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
@@ -11,7 +13,7 @@ import {useTheme, atoms as a} from '#/theme'
 import {AllNavigatorParams, NavigationProp} from '#/lib/routes/types'
 import {DataTable} from 'react-native-paper'
 import {useSession} from '#/state/session'
-import {useRepairOrdersQuery} from '#/modules/repairs'
+import {RepairOrder, useRepairOrdersQuery} from '#/modules/repairs'
 import {useNavigation} from '@react-navigation/native'
 import {convertTo12HourFormat, formatDate, getStatusColor} from '#/lib/utils'
 
@@ -19,6 +21,7 @@ import {PaymentStatus} from '#/modules/orders'
 import {color} from '#/theme/tokens'
 import {OrderStatusTabType, orderStatusTabs} from '#/lib/constants'
 import {currency} from '#/lib/currency'
+import {ListEmptyItem} from '#/components/ListEmptyItem'
 
 type Props = NativeStackScreenProps<AllNavigatorParams, 'Order'>
 export function OrdersScreen(props: Props) {
@@ -34,30 +37,19 @@ export function OrdersScreen(props: Props) {
   const [args, setArgs] = useState<{status: OrderStatusTabType}>({
     status: 'All Orders',
   })
-  const {data, isLoading, isError} = useRepairOrdersQuery(
-    session?.store_id!,
-    args,
-  )
+  const {data, isLoading, isError, isRefetching, refetch} =
+    useRepairOrdersQuery(session?.store_id!, args)
   const [sortAscending, setSortAscending] = useState(true)
-
-  const navigation = useNavigation<NavigationProp>()
-
-  const onPressReferenceNo = useCallback((id: string) => {
-    return () => {
-      navigation.navigate('OrderDetails', {id})
-    }
-  }, [])
-
+  const from = page * itemsPerPage
+  const to = Math.min((page + 1) * itemsPerPage, data?.length ?? 0)
   const sortedItems = (data ?? [])
-    .slice()
+    .slice(from, to)
     .sort((item1, item2) =>
       sortAscending
         ? item1.invoice_status!.localeCompare(item2.invoice_status!)
         : item2.invoice_status!.localeCompare(item1.invoice_status!),
     )
 
-  const from = page * itemsPerPage
-  const to = Math.min((page + 1) * itemsPerPage, data?.length ?? 0)
   const onSelect = useCallback(
     (status: OrderStatusTabType) => {
       setArgs(prev => {
@@ -71,8 +63,14 @@ export function OrdersScreen(props: Props) {
     [setArgs],
   )
 
+  const renderItem = useCallback(({item}: ListRenderItemInfo<RepairOrder>) => {
+    return <OrderTableRow item={item} />
+  }, [])
+
   React.useEffect(() => {
     setPage(0)
+    onItemsPerPageChange(numberOfItemsPerPageList[0])
+  }, [args])
     onItemsPerPageChange(numberOfItemsPerPageList[0])
   }, [args])
   return (
@@ -81,23 +79,25 @@ export function OrdersScreen(props: Props) {
         <Text style={[a.text_xl, a.font_bold]}>Manage Orders</Text>
       </View>
       <StatusFilterTab onSelect={onSelect} args={args} />
-
       <DataTable
         style={[
           {
-            backgroundColor: '#fff',
             borderRadius: 10,
             width: '100%',
+            flex: 1,
+            backgroundColor: sortedItems.length > 0 ? '#fff' : 'transparent',
           },
         ]}>
-        <DataTable.Header>
+        <DataTable.Header style={[t.atoms.bg, {borderRadius: 10}]}>
           <DataTable.Title textStyle={[styles.columnTitle]}>
             Order
           </DataTable.Title>
           <DataTable.Title textStyle={styles.columnTitle}>
             Vehicle
           </DataTable.Title>
-          <DataTable.Title textStyle={styles.columnTitle}>Item</DataTable.Title>
+          <DataTable.Title textStyle={styles.columnTitle}>
+            Service
+          </DataTable.Title>
           <DataTable.Title textStyle={styles.columnTitle}>
             Total
           </DataTable.Title>
@@ -119,57 +119,18 @@ export function OrdersScreen(props: Props) {
             <ActivityIndicator size={'large'} />
           </View>
         )}
-        {sortedItems.slice(from, to).map(item => {
-          const statusColor = getStatusColor(item.status)
-
-          return (
-            <DataTable.Row key={item.id}>
-              <DataTable.Cell style={{}}>
-                <Text
-                  onPress={onPressReferenceNo(item.id!)}
-                  style={[{color: color.blue_600}]}>
-                  {`${item.reference_no} - `}
-                  <Text style={{color: '#000'}}>
-                    {`${item.first_name} ${item.last_name}`}
-                  </Text>
-                </Text>
-              </DataTable.Cell>
-
-              <DataTable.Cell>{`${item.year_model ?? ''} ${item.make ?? ''} ${
-                item.model ?? ''
-              }`}</DataTable.Cell>
-              <DataTable.Cell>
-                <View>
-                  {item.order_line_services?.map(order_line_services => (
-                    <Text style={[a.text_sm]} key={order_line_services.id}>
-                      {order_line_services.name}
-                    </Text>
-                  ))}
-                </View>
-              </DataTable.Cell>
-              <DataTable.Cell>{`${currency.format(
-                item.total_cost ?? 0,
-              )}`}</DataTable.Cell>
-              <DataTable.Cell>{`${formatDate(
-                item.appointment_date!,
-              )} ${convertTo12HourFormat(
-                item.appointment_time!,
-              )}`}</DataTable.Cell>
-
-              <DataTable.Cell>
-                <View style={[{backgroundColor: statusColor, borderRadius: 8}]}>
-                  <Text
-                    style={[{padding: 6, color: '#fff', fontWeight: '500'}]}>
-                    {item.status}
-                  </Text>
-                </View>
-              </DataTable.Cell>
-              <DataTable.Cell>
-                <PaymentStatus status={item.invoice_status!} />
-              </DataTable.Cell>
-            </DataTable.Row>
-          )
-        })}
+        <FlatList
+          data={sortedItems}
+          renderItem={renderItem}
+          ItemSeparatorComponent={() => <TableSeparator />}
+          refreshing={isRefetching}
+          onRefresh={refetch}
+          ListEmptyComponent={
+            isLoading || isRefetching ? null : (
+              <ListEmptyItem style={{paddingTop: 100}} />
+            )
+          }
+        />
         <DataTable.Pagination
           page={page}
           numberOfPages={Math.ceil(sortedItems.length / itemsPerPage)}
@@ -184,6 +145,88 @@ export function OrdersScreen(props: Props) {
       </DataTable>
     </View>
     // </View>
+  )
+}
+
+function EmptyItem() {
+  const t = useTheme()
+  return (
+    <View style={[a.justify_center, a.align_center, {paddingTop: 100}]}>
+      <Text style={[a.font_bold, a.text_4xl, t.atoms.text_contrast_low]}>
+        Empty Data
+      </Text>
+    </View>
+  )
+}
+function TableSeparator() {
+  const t = useTheme()
+  return (
+    <View
+      style={[
+        a.border_t,
+        t.atoms.border_contrast_medium,
+        {height: 1, width: '100%'},
+      ]}
+    />
+  )
+}
+
+function OrderTableRow({item}: {item: RepairOrder}) {
+  const t = useTheme()
+  const statusColor = getStatusColor(item.status)
+  const navigation = useNavigation<NavigationProp>()
+  const onPressReferenceNo = useCallback(
+    (id: string) => {
+      return () => {
+        navigation.navigate('OrderDetails', {id})
+      }
+    },
+    [navigation],
+  )
+
+  return (
+    <DataTable.Row style={[t.atoms.bg]}>
+      <DataTable.Cell style={{}}>
+        <Text
+          onPress={onPressReferenceNo(item.id!)}
+          style={[{color: color.blue_600}]}>
+          {`${item.reference_no} - `}
+          <Text style={{color: '#000'}}>
+            {`${item.first_name} ${item.last_name}`}
+          </Text>
+        </Text>
+      </DataTable.Cell>
+
+      <DataTable.Cell>{`${item.year_model ?? ''} ${item.make ?? ''} ${
+        item.model ?? ''
+      }`}</DataTable.Cell>
+      <DataTable.Cell>
+        <View>
+          {item.order_line_services?.map(order_line_services => (
+            <Text style={[a.text_sm]} key={order_line_services.id}>
+              {order_line_services.name}
+            </Text>
+          ))}
+        </View>
+      </DataTable.Cell>
+      <DataTable.Cell>{`${currency.format(
+        item.total_cost ?? 0,
+      )}`}</DataTable.Cell>
+      <DataTable.Cell>{`${formatDate(
+        item.appointment_date!,
+      )} ${convertTo12HourFormat(item.appointment_time!)}`}</DataTable.Cell>
+
+      <DataTable.Cell>
+        <View style={[{backgroundColor: statusColor, borderRadius: 8}]}>
+          <Text style={[{padding: 6, color: '#fff', fontWeight: '500'}]}>
+            {item.status}
+          </Text>
+        </View>
+      </DataTable.Cell>
+      <DataTable.Cell>
+        <PaymentStatus status={item.invoice_status!} />
+      </DataTable.Cell>
+    </DataTable.Row>
   )
 }
 
@@ -228,42 +271,3 @@ const styles = StyleSheet.create({
     borderBottomWidth: 5,
   },
 })
-
-// {
-//   data && data.length > 0 ? (
-//     <DataTable.Row>
-//       <DataTable.Cell style={[]}>
-//         <Menu
-//           style={[
-//             a.flex_1,
-//             a.absolute,
-//             a.flex_row,
-//             a.justify_center,
-//             a.align_center,
-//             { right: 0, gap: 5 },
-//           ]}>
-//           <MenuTrigger style={[a.flex_1]}>
-//             <HStack>
-//               <Text>View 20</Text>
-//               <ChevronDown size={18} color={color.gray_600} />
-//             </HStack>
-//           </MenuTrigger>
-//           <MenuOptions
-//             customStyles={{
-//               optionsContainer: {
-//                 marginTop: 20,
-//               },
-//             }}>
-//             <MenuOption>
-//               <Text>Hello world</Text>
-//             </MenuOption>
-//           </MenuOptions>
-//         </Menu>
-//       </DataTable.Cell>
-//     </DataTable.Row>
-//   ) : !isLoading ? (
-//     <View style={[a.justify_center, a.align_center, a.py_2xs]}>
-//       <Text style={[{ color: color.gray_300 }]}>No Data</Text>
-//     </View>
-//   ) : null
-// }

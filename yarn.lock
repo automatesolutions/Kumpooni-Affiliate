@@ -1672,6 +1672,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@braintree/sanitize-url@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@braintree/sanitize-url@npm:7.1.0"
+  checksum: d17dcebc759278f4bc7ffbc13d6b7915133ea6fcdea023a1536f80c0b56f7afcd696a7c24781d078babc0da8afd3ed2871798b8067b0e1c90c2d8bd7843134cf
+  languageName: node
+  linkType: hard
+
 "@callstack/react-theme-provider@npm:^3.0.9":
   version: 3.0.9
   resolution: "@callstack/react-theme-provider@npm:3.0.9"
@@ -3894,6 +3901,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-native-dotenv@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@types/react-native-dotenv@npm:0.2.2"
+  checksum: a300037b84e7ae7db7f2609aa0893eccf596c5a78f6215b2733a8dfb7172277766a058f21a6852a223926763e6d3fc34da2a980d30ded585c555994db322a537
+  languageName: node
+  linkType: hard
+
 "@types/react-native-vector-icons@npm:^6.4.6":
   version: 6.4.18
   resolution: "@types/react-native-vector-icons@npm:6.4.18"
@@ -4191,6 +4205,7 @@ __metadata:
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
     "@bam.tech/react-native-image-resizer": ^3.0.10
+    "@braintree/sanitize-url": ^7.1.0
     "@discord/bottom-sheet": PitZza04/react-native-bottom-sheet
     "@formatjs/intl-locale": ^4.0.0
     "@formatjs/intl-relativetimeformat": ^11.2.14
@@ -4220,6 +4235,7 @@ __metadata:
     "@tanstack/react-query": ^5.40.0
     "@tanstack/react-query-persist-client": ^5.40.0
     "@types/react": ^18.2.6
+    "@types/react-native-dotenv": ^0.2.2
     "@types/react-test-renderer": ^18.0.0
     "@types/xdate": ^0.8.35
     babel-jest: ^29.6.3

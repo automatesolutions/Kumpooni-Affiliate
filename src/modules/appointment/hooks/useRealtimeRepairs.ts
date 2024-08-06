@@ -1,16 +1,16 @@
-import { supabase } from '#/lib/supabase'
-import { logger } from '#/logger'
-import { RepairOrder } from '#/modules/repairs'
-import { useSession } from '#/state/session'
-import { useQueryClient } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import {supabase} from '#/lib/supabase'
+import {logger} from '#/logger'
+import {RepairOrder} from '#/modules/repairs'
+import {useSession} from '#/state/session'
+import {useQueryClient} from '@tanstack/react-query'
+import {useEffect} from 'react'
 
 export function useRealtimeRepairsUpdater() {
-  const { session } = useSession()
+  const {session} = useSession()
   const qc = useQueryClient()
   useEffect(() => {
     if (!supabase || !session || !session.store_id) return
-    console.log('inside realtime')
+
     supabase.realtime.setAuth(session.access_token)
 
     const channel = supabase
@@ -30,7 +30,7 @@ export function useRealtimeRepairsUpdater() {
               ['repair_orders'],
               (cache: RepairOrder[] | undefined) => {
                 if (cache) {
-                  const newRepair = { ...payload.new }
+                  const newRepair = {...payload.new}
                   return [...cache, newRepair]
                 }
                 return cache
@@ -45,7 +45,7 @@ export function useRealtimeRepairsUpdater() {
                   //   let updatedRepairs: RepairOrder = {} as RepairOrder
                   if (index !== -1) {
                     const newArr = [...cache]
-                    newArr[index] = { ...(payload.new as RepairOrder) }
+                    newArr[index] = {...(payload.new as RepairOrder)}
 
                     return newArr
                   }
@@ -70,7 +70,6 @@ export function useRealtimeRepairsUpdater() {
       .subscribe()
 
     return () => {
-      console.log('repair_order-removing')
       // if (channel) supabase?.removeChannel(channel)
       channel.unsubscribe()
     }
