@@ -1,3 +1,5 @@
+An affiliate platform that functions as a B2B SaaS solution, supporting businesses in managing inquiries from car owners efficiently. It also provides accurate accounting information and will enhance parts inventory management using RFID technology in the future. Additionally, it aims to streamline the supply chain for auto parts and accessories
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
